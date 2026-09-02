@@ -336,15 +336,15 @@ const TIMELINE = [
     }
   },
   {
-    when: { pt: '2026', en: '2026' },
+    when: { pt: 'A virada para a engenharia', en: 'The turn to engineering' },
     title: { pt: 'ADS e a Convertta', en: 'College and Convertta' },
     body: {
-      pt: 'Entrei em Análise e Desenvolvimento de Sistemas — atualmente em Estrutura de Dados, Banco de Dados e Script Web — e organizei o trabalho freelance sob a marca Convertta.',
-      en: 'Started Systems Analysis and Development — currently Data Structures, Databases and Web Scripting — and organized the freelance work under the Convertta brand.'
+      pt: 'Entrei em Análise e Desenvolvimento de Sistemas e organizei o trabalho freelance sob a marca Convertta. O lado do negócio virou base para o lado técnico, não substituto dele.',
+      en: 'I started a Systems Analysis and Development degree and organized the freelance work under the Convertta brand. The business side became the foundation for the technical one, not a substitute for it.'
     }
   },
   {
-    when: { pt: 'ago/2026', en: 'Aug/2026' },
+    when: { pt: 'O projeto que puxou tudo', en: 'The project that pulled everything' },
     title: { pt: 'Aiden: da v1 à v4', en: 'Aiden: v1 to v4' },
     body: {
       pt: 'Pipeline de voz completo em quatro versões: streaming de fala, roteador de intenção, 27 skills, memória entre sessões e wake word treinada localmente. De 37 para 428 testes, latência de 14,8s para 8,5s.',
@@ -352,19 +352,19 @@ const TIMELINE = [
     }
   },
   {
-    when: { pt: 'ago/2026', en: 'Aug/2026' },
-    title: { pt: 'A regra que mudou o projeto', en: 'The rule that changed the project' },
+    when: { pt: 'A regra que mudou o rumo', en: 'The rule that changed course' },
+    title: { pt: 'Capacidade não exercitada não conta', en: 'Capability not exercised does not count' },
     body: {
       pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 521 testes, widget na tela, desligamento por voz.',
       en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 521 tests, on-screen widget, voice shutdown.'
     }
   },
   {
-    when: { pt: 'agora', en: 'now' },
+    when: { pt: 'Agora', en: 'Now' },
     title: { pt: 'Buscando estágio', en: 'Looking for an internship' },
     body: {
-      pt: 'Abrindo o repositório do Aiden ao público, construindo o Painel Convertta e procurando um time onde eu seja o júnior que aprende rápido porque já constrói sozinho.',
-      en: 'Opening the Aiden repository to the public, building the Convertta Panel, and looking for a team where I can be the junior who learns fast because he already builds on his own.'
+      pt: 'Repositório do Aiden aberto ao público, Painel Convertta em construção, e a procura por um time onde eu seja o júnior que aprende rápido porque já constrói sozinho.',
+      en: 'The Aiden repository is public, the Convertta Panel is under construction, and I am looking for a team where I can be the junior who learns fast because he already builds on his own.'
     }
   }
 ];
