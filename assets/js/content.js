@@ -1,0 +1,378 @@
+/* ============================================================
+   content.js — todo o conteúdo do site, em PT e EN.
+   Editar aqui é a única coisa necessária para atualizar a página.
+   ============================================================ */
+
+const CONFIG = {
+  name: 'Murilo Soares',
+  email: 'soaresmurilor@gmail.com',
+  github: 'https://github.com/SoaresM-dev',
+  githubUser: 'SoaresM-dev',
+  linkedin: 'https://www.linkedin.com/in/murilo-soares-04523740a/',
+  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' }
+};
+
+/* ---------- textos estáticos ---------- */
+const I18N = {
+  pt: {
+    'nav.skip': 'Pular para os projetos',
+    'nav.about': 'Sobre', 'nav.stack': 'Stack', 'nav.projects': 'Projetos',
+    'nav.path': 'Trajetória', 'nav.contact': 'Contato', 'nav.search': 'Buscar',
+
+    'hero.status': 'Disponível para estágio · início imediato',
+    'hero.h1a': 'Construo sistemas que',
+    'hero.h1b': 'funcionam sob restrição real.',
+    'hero.lede': 'Estudante de Análise e Desenvolvimento de Sistemas. Escrevi um assistente de voz que roda 100% offline numa máquina sem GPU, e construo sites que existem para converter — não para enfeitar.',
+    'hero.ctaProjects': 'Ver projetos',
+    'hero.copyMail': 'Copiar e-mail',
+
+    'metric.tests': 'testes automatizados',
+    'metric.skills': 'skills no assistente',
+    'metric.latency': 'de queda na latência de resposta',
+    'metric.offline': 'offline — sem API em nuvem',
+
+    'sec.about': 'sobre', 'sec.stack': 'stack', 'sec.projects': 'projetos',
+    'sec.path': 'trajetória', 'sec.contact': 'contato',
+
+    'about.title': 'Aprendi a programar resolvendo problemas que eu tinha.',
+    'about.p1': 'Comecei pelo lado do negócio: sites e campanhas de tráfego pago para clientes reais, onde a única métrica que importava era conversão. Isso me ensinou a olhar software pelo resultado, não pela quantidade de código.',
+    'about.p2': 'Depois vim para o lado da engenharia. Hoje curso Análise e Desenvolvimento de Sistemas e mantenho o Aiden, um assistente de voz em português rodando inteiramente offline numa máquina CPU-only com 15,7 GB de RAM — uma restrição que obriga a decidir bem em vez de gastar hardware.',
+    'about.p3': 'Procuro um estágio onde eu possa fazer as duas coisas: escrever código que se sustenta em teste e entender por que ele existe.',
+    'about.f1k': 'formação',      'about.f1v': 'ADS · em curso',
+    'about.f2k': 'semestre atual','about.f2v': 'Estrutura de Dados · Banco de Dados · Script Web',
+    'about.f3k': 'foco',          'about.f3v': 'Back-end em Python e front-end',
+    'about.f4k': 'idiomas',       'about.f4v': 'Português nativo · Inglês técnico',
+    'about.f5k': 'buscando',      'about.f5v': 'Estágio remoto ou híbrido',
+
+    'stack.title': 'O que eu uso, e onde usei.',
+    'stack.lede': 'Sem barra de porcentagem. Clique em qualquer tecnologia para ver só os projetos em que ela aparece.',
+
+    'projects.title': 'Projetos reais, com números.',
+    'projects.filtering': 'filtrando por',
+    'projects.clear': 'limpar',
+    'projects.empty': 'nenhum projeto com essa tecnologia ainda.',
+    'proj.problem': 'Problema', 'proj.solution': 'Solução', 'proj.result': 'Resultado',
+    'proj.more': 'Ler detalhes', 'proj.less': 'Recolher',
+    'proj.repo': 'Repositório', 'proj.demo': 'Ver ao vivo',
+
+    'path.title': 'Como cheguei até aqui.',
+
+    'contact.title': 'Procuro estágio em desenvolvimento.',
+    'contact.lede': 'Se você tem uma vaga, uma dúvida sobre algum projeto ou quer o código de alguma coisa daqui — é só chamar. Respondo rápido.',
+    'contact.mail': 'E-mail', 'contact.copy': 'copiar',
+
+    'foot.built': 'Construído à mão · HTML, CSS e JavaScript · sem framework',
+    'toast.copied': 'E-mail copiado para a área de transferência',
+    'toast.failed': 'Não consegui copiar — o e-mail é ' + CONFIG.email,
+
+    'palette.go': 'Ir para', 'palette.open': 'Abrir', 'palette.action': 'Ação',
+    'palette.none': 'nenhum comando encontrado'
+  },
+
+  en: {
+    'nav.skip': 'Skip to projects',
+    'nav.about': 'About', 'nav.stack': 'Stack', 'nav.projects': 'Projects',
+    'nav.path': 'Path', 'nav.contact': 'Contact', 'nav.search': 'Search',
+
+    'hero.status': 'Available for an internship · can start now',
+    'hero.h1a': 'I build systems that',
+    'hero.h1b': 'work under real constraints.',
+    'hero.lede': 'Computer Science technology student. I wrote a voice assistant that runs 100% offline on a GPU-less machine, and I build websites that exist to convert — not to decorate.',
+    'hero.ctaProjects': 'See projects',
+    'hero.copyMail': 'Copy e-mail',
+
+    'metric.tests': 'automated tests',
+    'metric.skills': 'skills in the assistant',
+    'metric.latency': 'drop in response latency',
+    'metric.offline': 'offline — zero cloud APIs',
+
+    'sec.about': 'about', 'sec.stack': 'stack', 'sec.projects': 'projects',
+    'sec.path': 'path', 'sec.contact': 'contact',
+
+    'about.title': 'I learned to code by solving problems I actually had.',
+    'about.p1': 'I started on the business side: websites and paid-traffic campaigns for real clients, where the only metric that mattered was conversion. That taught me to judge software by outcome, not by lines of code.',
+    'about.p2': 'Then I moved to the engineering side. I am studying Systems Analysis and Development and I maintain Aiden, a Portuguese-language voice assistant running fully offline on a CPU-only machine with 15.7 GB of RAM — a constraint that forces good decisions instead of more hardware.',
+    'about.p3': 'I am looking for an internship where I can do both: write code that holds up under tests and understand why it exists.',
+    'about.f1k': 'education',   'about.f1v': 'Systems Analysis & Development · in progress',
+    'about.f2k': 'this term',   'about.f2v': 'Data Structures · Databases · Web Scripting',
+    'about.f3k': 'focus',       'about.f3v': 'Python back-end and front-end',
+    'about.f4k': 'languages',   'about.f4v': 'Portuguese native · technical English',
+    'about.f5k': 'looking for', 'about.f5v': 'Remote or hybrid internship',
+
+    'stack.title': 'What I use, and where I used it.',
+    'stack.lede': 'No percentage bars. Click any technology to see only the projects it shows up in.',
+
+    'projects.title': 'Real projects, with numbers.',
+    'projects.filtering': 'filtering by',
+    'projects.clear': 'clear',
+    'projects.empty': 'no project with that technology yet.',
+    'proj.problem': 'Problem', 'proj.solution': 'Solution', 'proj.result': 'Result',
+    'proj.more': 'Read details', 'proj.less': 'Collapse',
+    'proj.repo': 'Repository', 'proj.demo': 'Live demo',
+
+    'path.title': 'How I got here.',
+
+    'contact.title': 'I am looking for a development internship.',
+    'contact.lede': 'If you have an opening, a question about any project, or want the code behind something here — just reach out. I answer fast.',
+    'contact.mail': 'E-mail', 'contact.copy': 'copy',
+
+    'foot.built': 'Hand-built · HTML, CSS and JavaScript · no framework',
+    'toast.copied': 'E-mail copied to clipboard',
+    'toast.failed': 'Copy failed — the address is ' + CONFIG.email,
+
+    'palette.go': 'Go to', 'palette.open': 'Open', 'palette.action': 'Action',
+    'palette.none': 'no command found'
+  }
+};
+
+/* ---------- linha que digita no hero ---------- */
+const TYPED = {
+  pt: ['Desenvolvedor full-stack', 'Python · FastAPI · PostgreSQL', 'JavaScript · HTML · CSS', 'Estudante de ADS'],
+  en: ['Full-stack developer', 'Python · FastAPI · PostgreSQL', 'JavaScript · HTML · CSS', 'CS technology student']
+};
+
+/* ---------- terminal do hero ---------- */
+const TERM = {
+  pt: [
+    { t: 'cmd',  v: 'whoami' },
+    { t: 'out',  v: 'murilo_soares — desenvolvedor full-stack, estudante de ADS' },
+    { t: 'cmd',  v: 'cat foco.txt' },
+    { t: 'out',  v: 'back-end em Python · front-end · banco de dados' },
+    { t: 'cmd',  v: 'aiden --status' },
+    { t: 'ok',   v: '● online   521 testes   27 skills   0 chamadas em nuvem' },
+    { t: 'cmd',  v: 'status --vaga' },
+    { t: 'ok',   v: '● procurando estágio · remoto ou híbrido' },
+    { t: 'cmd',  v: '' }
+  ],
+  en: [
+    { t: 'cmd',  v: 'whoami' },
+    { t: 'out',  v: 'murilo_soares — full-stack developer, CS technology student' },
+    { t: 'cmd',  v: 'cat focus.txt' },
+    { t: 'out',  v: 'python back-end · front-end · databases' },
+    { t: 'cmd',  v: 'aiden --status' },
+    { t: 'ok',   v: '● online   521 tests   27 skills   0 cloud calls' },
+    { t: 'cmd',  v: 'status --job' },
+    { t: 'ok',   v: '● seeking an internship · remote or hybrid' },
+    { t: 'cmd',  v: '' }
+  ]
+};
+
+/* ---------- stack ---------- */
+const STACK = [
+  { group: { pt: 'Linguagens', en: 'Languages' }, items: [
+    { n: 'Python',     w: { pt: 'Aiden inteiro — pipeline de voz, API e testes', en: 'All of Aiden — voice pipeline, API and tests' } },
+    { n: 'JavaScript', w: { pt: 'Esta página, HUD do Aiden, landing pages', en: 'This page, Aiden HUD, landing pages' } },
+    { n: 'SQL',        w: { pt: 'Modelagem e consultas · disciplina de Banco de Dados', en: 'Modeling and queries · Databases coursework' } },
+    { n: 'C',          w: { pt: 'Estruturas de dados e alocação dinâmica', en: 'Data structures and dynamic allocation' } },
+    { n: 'HTML',       w: { pt: 'Sites e landing pages para clientes', en: 'Client websites and landing pages' } },
+    { n: 'CSS',        w: { pt: 'Layout responsivo sem framework', en: 'Responsive layout, no framework' } }
+  ]},
+  { group: { pt: 'Back-end', en: 'Back-end' }, items: [
+    { n: 'FastAPI',   w: { pt: 'Servidor do Aiden, com WebSocket', en: 'Aiden server, with WebSocket' } },
+    { n: 'WebSocket', w: { pt: 'Streaming de estado entre o núcleo e o HUD', en: 'State streaming between core and HUD' } },
+    { n: 'REST',      w: { pt: 'Desenho de rotas e contratos de API', en: 'Route design and API contracts' } },
+    { n: 'pytest',    w: { pt: '521 testes no Aiden, rodando a cada mudança', en: '521 tests in Aiden, run on every change' } },
+    { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } }
+  ]},
+  { group: { pt: 'Front-end', en: 'Front-end' }, items: [
+    { n: 'DOM & ES6+',      w: { pt: 'Paleta de comandos e i18n desta página', en: 'Command palette and i18n on this page' } },
+    { n: 'Design responsivo', w: { pt: 'Todas as landing pages entregues', en: 'Every landing page delivered' } },
+    { n: 'Acessibilidade',  w: { pt: 'Navegação por teclado e foco visível', en: 'Keyboard navigation and visible focus' } },
+    { n: 'React',           w: { pt: 'Em estudo — front do Painel Convertta', en: 'Learning — Convertta Panel front-end' }, soon: true }
+  ]},
+  { group: { pt: 'Dados', en: 'Data' }, items: [
+    { n: 'PostgreSQL',    w: { pt: 'Banco do Painel Convertta', en: 'Convertta Panel database' } },
+    { n: 'SQLite',        w: { pt: 'Memória entre sessões do Aiden', en: 'Aiden cross-session memory' } },
+    { n: 'Modelagem',     w: { pt: 'Diagrama ER e normalização', en: 'ER diagrams and normalization' } },
+    { n: 'SQLAlchemy',    w: { pt: 'ORM e migrações com Alembic', en: 'ORM and Alembic migrations' } }
+  ]},
+  { group: { pt: 'Ferramentas', en: 'Tooling' }, items: [
+    { n: 'Git',            w: { pt: 'Fluxo diário, histórico limpo', en: 'Daily workflow, clean history' } },
+    { n: 'GitHub Actions', w: { pt: 'CI rodando a suíte a cada push', en: 'CI running the suite on every push' } },
+    { n: 'Docker',         w: { pt: 'Ambiente reprodutível do Painel', en: 'Reproducible Panel environment' } },
+    { n: 'VS Code',        w: { pt: 'Editor principal', en: 'Main editor' } },
+    { n: 'Claude Code',    w: { pt: 'Par de programação no dia a dia', en: 'Daily pair-programming' } }
+  ]},
+  { group: { pt: 'Produto e aquisição', en: 'Product & growth' }, items: [
+    { n: 'Google Ads', w: { pt: 'Campanhas reais para clientes', en: 'Real client campaigns' } },
+    { n: 'Meta Ads',   w: { pt: 'Campanhas reais para clientes', en: 'Real client campaigns' } },
+    { n: 'Conversão',  w: { pt: 'Páginas desenhadas em cima da métrica', en: 'Pages designed around the metric' } },
+    { n: 'Office',     w: { pt: 'Relatórios e planilhas de campanha', en: 'Campaign reports and spreadsheets' } }
+  ]}
+];
+
+/* ---------- projetos ---------- */
+const PROJECTS = [
+  {
+    id: 'aiden',
+    featured: true,
+    year: '2026',
+    status: { key: 'live', pt: 'código aberto', en: 'open source' },
+    name: 'Aiden',
+    tagline: {
+      pt: 'Assistente de voz em português rodando 100% offline numa máquina sem GPU.',
+      en: 'Portuguese voice assistant running 100% offline on a GPU-less machine.'
+    },
+    tags: ['Python', 'FastAPI', 'WebSocket', 'pytest', 'Ollama', 'SQLite'],
+    stats: [
+      { v: '521', l: { pt: 'testes', en: 'tests' } },
+      { v: '27',  l: { pt: 'skills', en: 'skills' } },
+      { v: { pt: '8,5s', en: '8.5s' }, l: { pt: 'até a 1ª resposta', en: 'to first answer' } },
+      { v: '0',   l: { pt: 'chamadas em nuvem', en: 'cloud calls' } }
+    ],
+    problem: {
+      pt: 'Todo assistente de voz decente depende de nuvem: latência, custo por requisição e o seu áudio saindo da máquina. Eu queria um que rodasse inteiro no meu computador, em português — e o computador é CPU-only, com 15,7 GB de RAM e sem CUDA.',
+      en: 'Every decent voice assistant depends on the cloud: latency, per-request cost, and your audio leaving the machine. I wanted one that ran entirely on my computer, in Portuguese — and that computer is CPU-only, 15.7 GB of RAM, no CUDA.'
+    },
+    solution: {
+      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 521 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 165 KB.',
+      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 521-test suite that runs on every change. Every engineering decision is recorded in a decision log now 165 KB long.'
+    },
+    result: {
+      pt: 'Tempo até a primeira resposta caiu de 14,8s para 8,5s (−42%) e a taxa de erro de transcrição de 31% para 24,7%, na mesma máquina e sem trocar hardware. Roda sem console, sobe com o Windows e desliga por comando de voz.',
+      en: 'Time to first answer dropped from 14.8s to 8.5s (−42%) and word error rate from 31% to 24.7%, on the same machine, with no hardware change. Runs without a console, starts with Windows, shuts down by voice.'
+    },
+    links: [
+      { href: 'https://github.com/SoaresM-dev/aiden', label: { pt: 'Repositório', en: 'Repository' } }
+    ]
+  },
+  {
+    id: 'convertta-sites',
+    featured: false,
+    year: '2025–2026',
+    status: { key: 'live', pt: 'entregue', en: 'delivered' },
+    name: 'Convertta — sites e landing pages',
+    tagline: {
+      pt: 'Páginas construídas em volta de uma métrica: conversão. E as campanhas que apontam para elas.',
+      en: 'Pages built around one metric: conversion. And the campaigns that point at them.'
+    },
+    tags: ['HTML', 'CSS', 'JavaScript', 'Design responsivo', 'Google Ads', 'Meta Ads', 'Conversão'],
+    stats: [
+      { v: '3', l: { pt: 'segmentos atendidos', en: 'segments served' } },
+      { v: '1', l: { pt: 'pessoa: página + campanha', en: 'person: page + campaign' } }
+    ],
+    problem: {
+      pt: 'Cliente com anúncio no ar e página que não converte queima verba todo dia. Na maioria dos casos a página e a campanha são feitas por gente diferente, que não conversa — e a promessa do anúncio não é a promessa da página.',
+      en: 'A client running ads with a page that does not convert burns budget every single day. Usually the page and the campaign are made by different people who never talk — and the ad promise is not the page promise.'
+    },
+    solution: {
+      pt: 'Landing pages single-page com estética dark high-end, escritas em HTML, CSS e JavaScript puros para carregar rápido em 3G. Estrutura fixa: uma promessa, uma prova, um botão. Peças construídas para SaaS, e-commerce e escritório de advocacia. As campanhas de Google e Meta Ads que trazem o tráfego são configuradas pela mesma pessoa que escreveu a página.',
+      en: 'Single-page dark, high-end landing pages written in plain HTML, CSS and JavaScript so they load fast on 3G. Fixed structure: one promise, one proof, one button. Pieces built for SaaS, e-commerce and a law firm. The Google and Meta Ads campaigns that bring the traffic are set up by the same person who wrote the page.'
+    },
+    result: {
+      pt: 'O que o anúncio promete é exatamente o que a página entrega, porque não há repasse entre duas equipes. É de onde vem minha leitura de produto: código julgado pelo resultado, não pelo tamanho.',
+      en: 'What the ad promises is exactly what the page delivers, because nothing is handed off between two teams. This is where my product instinct comes from: code judged by outcome, not by size.'
+    },
+    links: []
+  },
+  {
+    id: 'painel-convertta',
+    featured: false,
+    year: '2026',
+    status: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
+    name: { pt: 'Painel Convertta', en: 'Convertta Panel' },
+    tagline: {
+      pt: 'Aplicação full-stack para acompanhar leads e custo por lead das campanhas — construída porque eu precisava dela.',
+      en: 'Full-stack app to track leads and cost per lead across campaigns — built because I needed it.'
+    },
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'Docker', 'GitHub Actions', 'Modelagem'],
+    stats: [
+      { v: '3', l: { pt: 'entidades · escopo travado', en: 'entities · locked scope' } },
+      { v: 'JWT', l: { pt: 'autenticação', en: 'authentication' } }
+    ],
+    problem: {
+      pt: 'Leads e campanhas de vários clientes espalhados em planilhas. Descobrir o custo por lead de uma campanha específica custava meia hora de trabalho manual.',
+      en: 'Leads and campaigns for several clients scattered across spreadsheets. Finding the cost per lead of one campaign took half an hour of manual work.'
+    },
+    solution: {
+      pt: 'API em FastAPI sobre PostgreSQL com SQLAlchemy e migrações Alembic, autenticação JWT, front em React com Vite e Docker Compose para subir tudo com um comando. Escopo deliberadamente travado em três entidades, um painel e um login — projeto que cresce sem parar é projeto que não sai.',
+      en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + Vite front-end and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
+    },
+    result: {
+      pt: 'Em desenvolvimento. O objetivo é uma URL pública com conta de demonstração, testes em CI e o custo por lead calculado automaticamente por campanha.',
+      en: 'In progress. The goal is a public URL with a demo account, CI-run tests, and cost per lead computed automatically per campaign.'
+    },
+    links: []
+  },
+  {
+    id: 'estruturas-c',
+    featured: false,
+    year: '2026',
+    status: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
+    name: { pt: 'Estruturas de dados em C', en: 'Data structures in C' },
+    tagline: {
+      pt: 'Biblioteca própria de listas, pilhas e filas com alocação dinâmica — o fundamento sem atalho.',
+      en: 'A hand-written library of lists, stacks and queues with dynamic allocation — fundamentals, no shortcuts.'
+    },
+    tags: ['C', 'Modelagem'],
+    stats: [
+      { v: '0', l: { pt: 'vazamentos de memória (meta)', en: 'memory leaks (target)' } }
+    ],
+    problem: {
+      pt: 'Framework esconde estrutura de dados. Quem só usa lista pronta não sabe o que acontece quando ela cresce.',
+      en: 'Frameworks hide data structures. If you only ever use a ready-made list, you do not know what happens when it grows.'
+    },
+    solution: {
+      pt: 'Biblioteca em C escrita do zero: lista dinâmica encadeada, pilha, fila e structs próprias, com Makefile, cabeçalhos separados e testes de vazamento de memória. Nasce da disciplina de Estrutura de Dados, mas fica no padrão de repositório público.',
+      en: 'A C library written from scratch: dynamic linked list, stack, queue and custom structs, with a Makefile, separate headers and memory-leak tests. It comes out of my Data Structures coursework but is kept to public-repo standard.'
+    },
+    result: {
+      pt: 'Em desenvolvimento. Serve de base para as provas técnicas de estágio, que quase sempre caem em ponteiro e complexidade.',
+      en: 'In progress. It doubles as preparation for internship technical tests, which almost always land on pointers and complexity.'
+    },
+    links: []
+  }
+];
+
+/* ---------- trajetória ---------- */
+const TIMELINE = [
+  {
+    when: { pt: 'Antes do código', en: 'Before the code' },
+    title: { pt: 'Freelance: sites e tráfego pago', en: 'Freelance: websites and paid traffic' },
+    body: {
+      pt: 'Sites e landing pages para clientes reais, com campanhas de Google e Meta Ads rodando por cima. Aprendi a medir trabalho por resultado antes de aprender a medir por teste.',
+      en: 'Websites and landing pages for real clients, with Google and Meta Ads campaigns running on top. I learned to measure work by outcome before I learned to measure it by tests.'
+    }
+  },
+  {
+    when: { pt: '2026', en: '2026' },
+    title: { pt: 'ADS e a Convertta', en: 'College and Convertta' },
+    body: {
+      pt: 'Entrei em Análise e Desenvolvimento de Sistemas — atualmente em Estrutura de Dados, Banco de Dados e Script Web — e organizei o trabalho freelance sob a marca Convertta.',
+      en: 'Started Systems Analysis and Development — currently Data Structures, Databases and Web Scripting — and organized the freelance work under the Convertta brand.'
+    }
+  },
+  {
+    when: { pt: 'ago/2026', en: 'Aug/2026' },
+    title: { pt: 'Aiden: da v1 à v4', en: 'Aiden: v1 to v4' },
+    body: {
+      pt: 'Pipeline de voz completo em quatro versões: streaming de fala, roteador de intenção, 27 skills, memória entre sessões e wake word treinada localmente. De 37 para 428 testes, latência de 14,8s para 8,5s.',
+      en: 'A full voice pipeline across four versions: speech streaming, intent router, 27 skills, cross-session memory and a locally trained wake word. From 37 to 428 tests, latency from 14.8s to 8.5s.'
+    }
+  },
+  {
+    when: { pt: 'ago/2026', en: 'Aug/2026' },
+    title: { pt: 'A regra que mudou o projeto', en: 'The rule that changed the project' },
+    body: {
+      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 521 testes, widget na tela, desligamento por voz.',
+      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 521 tests, on-screen widget, voice shutdown.'
+    }
+  },
+  {
+    when: { pt: 'agora', en: 'now' },
+    title: { pt: 'Buscando estágio', en: 'Looking for an internship' },
+    body: {
+      pt: 'Abrindo o repositório do Aiden ao público, construindo o Painel Convertta e procurando um time onde eu seja o júnior que aprende rápido porque já constrói sozinho.',
+      en: 'Opening the Aiden repository to the public, building the Convertta Panel, and looking for a team where I can be the junior who learns fast because he already builds on his own.'
+    }
+  }
+];
+
+
+/* ---------- rótulos das tecnologias em EN (a chave interna continua em PT) ---------- */
+const TAG_LABELS = {
+  'Design responsivo': { pt: 'Design responsivo', en: 'Responsive design' },
+  'Acessibilidade':    { pt: 'Acessibilidade',    en: 'Accessibility' },
+  'Modelagem':         { pt: 'Modelagem',         en: 'Data modeling' },
+  'Conversão':         { pt: 'Conversão',         en: 'Conversion' }
+};

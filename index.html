@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Murilo Soares — Desenvolvedor Full-Stack</title>
+<meta name="description" content="Estudante de ADS e desenvolvedor full-stack. Assistente de voz 100% offline em Python, sites e landing pages orientados a conversão. Buscando estágio.">
+<meta name="author" content="Murilo Soares">
+<meta name="theme-color" content="#08090b">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Murilo Soares — Desenvolvedor Full-Stack">
+<meta property="og:description" content="Sistemas que funcionam sob restrição real. Python, FastAPI, front-end e banco de dados.">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2308090b'/><text y='68' x='50' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%2322d3ee'>MS</text></svg>">
+</head>
+<body>
+
+<div class="scanline" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<a class="skip" href="#projetos" data-i18n="nav.skip">Pular para os projetos</a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top" aria-label="Murilo Soares">
+      <span class="brand__mark">MS</span>
+      <span class="brand__name">Murilo Soares</span>
+    </a>
+    <nav class="nav__links" aria-label="Seções">
+      <a href="#sobre"    data-nav data-i18n="nav.about">Sobre</a>
+      <a href="#stack"    data-nav data-i18n="nav.stack">Stack</a>
+      <a href="#projetos" data-nav data-i18n="nav.projects">Projetos</a>
+      <a href="#trajeto"  data-nav data-i18n="nav.path">Trajetória</a>
+      <a href="#contato"  data-nav data-i18n="nav.contact">Contato</a>
+    </nav>
+    <div class="nav__tools">
+      <button class="kbd-hint" id="paletteBtn" aria-label="Abrir paleta de comandos">
+        <span data-i18n="nav.search">Buscar</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+      <button class="lang" id="langBtn" aria-label="Alternar idioma / Toggle language">
+        <span class="lang__opt is-on" data-lang-opt="pt">PT</span><span class="lang__sep">/</span><span class="lang__opt" data-lang-opt="en">EN</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="status" id="status">
+          <span class="status__dot"></span>
+          <span data-i18n="hero.status">Disponível para estágio · início imediato</span>
+        </p>
+        <h1 class="hero__title">
+          <span data-i18n="hero.h1a">Construo sistemas que</span><br>
+          <span class="accent" data-i18n="hero.h1b">funcionam sob restrição real.</span>
+        </h1>
+        <p class="hero__role"><span class="mono" id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+        <p class="hero__lede" data-i18n="hero.lede">
+          Estudante de Análise e Desenvolvimento de Sistemas. Escrevi um assistente de voz que roda
+          100% offline numa máquina sem GPU, e construo sites que existem para converter — não para enfeitar.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#projetos"><span data-i18n="hero.ctaProjects">Ver projetos</span> <span class="btn__arrow">→</span></a>
+          <a class="btn" id="ghBtn" href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" id="liBtn" href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <button class="btn btn--ghost" id="copyMail" data-i18n="hero.copyMail">Copiar e-mail</button>
+        </div>
+      </div>
+
+      <div class="hero__panel">
+        <div class="term" role="img" aria-label="Terminal com resumo do perfil">
+          <div class="term__bar">
+            <span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span>
+            <span class="term__title mono">murilo@portfolio — zsh</span>
+          </div>
+          <pre class="term__body mono" id="termBody"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul class="metrics" id="metrics">
+        <li class="metric"><b class="metric__num" data-count="521">0</b><span class="metric__lbl" data-i18n="metric.tests">testes automatizados</span></li>
+        <li class="metric"><b class="metric__num" data-count="27">0</b><span class="metric__lbl" data-i18n="metric.skills">skills no assistente</span></li>
+        <li class="metric"><b class="metric__num" data-count="42" data-suffix="%">0</b><span class="metric__lbl" data-i18n="metric.latency">de queda na latência de resposta</span></li>
+        <li class="metric"><b class="metric__num" data-count="100" data-suffix="%">0</b><span class="metric__lbl" data-i18n="metric.offline">offline — sem API em nuvem</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== SOBRE ==================== -->
+  <section id="sobre" class="section">
+    <div class="wrap">
+      <p class="sec-label mono"><span>01</span> <span data-i18n="sec.about">sobre</span></p>
+      <div class="about">
+        <div class="about__main">
+          <h2 class="sec-title" data-i18n="about.title">Aprendi a programar resolvendo problemas que eu tinha.</h2>
+          <p data-i18n="about.p1">Comecei pelo lado do negócio: sites e campanhas de tráfego pago para clientes reais, onde a única métrica que importava era conversão. Isso me ensinou a olhar software pelo resultado, não pela quantidade de código.</p>
+          <p data-i18n="about.p2">Depois vim para o lado da engenharia. Hoje curso Análise e Desenvolvimento de Sistemas e mantenho o Aiden, um assistente de voz em português rodando inteiramente offline numa máquina CPU-only com 15,7 GB de RAM — uma restrição que obriga a decidir bem em vez de gastar hardware.</p>
+          <p data-i18n="about.p3">Procuro um estágio onde eu possa fazer as duas coisas: escrever código que se sustenta em teste e entender por que ele existe.</p>
+        </div>
+        <ul class="about__facts">
+          <li><span class="mono" data-i18n="about.f1k">formação</span><b data-i18n="about.f1v">ADS · em curso</b></li>
+          <li><span class="mono" data-i18n="about.f2k">semestre atual</span><b data-i18n="about.f2v">Estrutura de Dados · Banco de Dados · Script Web</b></li>
+          <li><span class="mono" data-i18n="about.f3k">foco</span><b data-i18n="about.f3v">Back-end em Python e front-end</b></li>
+          <li><span class="mono" data-i18n="about.f4k">idiomas</span><b data-i18n="about.f4v">Português nativo · Inglês técnico</b></li>
+          <li><span class="mono" data-i18n="about.f5k">buscando</span><b data-i18n="about.f5v">Estágio em desenvolvimento</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STACK ==================== -->
+  <section id="stack" class="section">
+    <div class="wrap">
+      <p class="sec-label mono"><span>02</span> <span data-i18n="sec.stack">stack</span></p>
+      <h2 class="sec-title" data-i18n="stack.title">O que eu uso, e onde usei.</h2>
+      <p class="sec-lede" data-i18n="stack.lede">Sem barra de porcentagem. Clique em qualquer tecnologia para ver só os projetos em que ela aparece.</p>
+      <div class="stack" id="stackGrid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJETOS ==================== -->
+  <section id="projetos" class="section">
+    <div class="wrap">
+      <p class="sec-label mono"><span>03</span> <span data-i18n="sec.projects">projetos</span></p>
+      <div class="proj-head">
+        <h2 class="sec-title" data-i18n="projects.title">Projetos reais, com números.</h2>
+        <div class="filter-bar" id="filterBar" hidden>
+          <span class="mono" data-i18n="projects.filtering">filtrando por</span>
+          <span class="chip chip--on" id="filterChip"></span>
+          <button class="filter-clear" id="filterClear" data-i18n="projects.clear">limpar</button>
+        </div>
+      </div>
+      <div class="projects" id="projectsGrid"></div>
+      <p class="empty mono" id="projectsEmpty" hidden data-i18n="projects.empty">nenhum projeto com essa tecnologia ainda.</p>
+    </div>
+  </section>
+
+  <!-- ==================== TRAJETÓRIA ==================== -->
+  <section id="trajeto" class="section">
+    <div class="wrap">
+      <p class="sec-label mono"><span>04</span> <span data-i18n="sec.path">trajetória</span></p>
+      <h2 class="sec-title" data-i18n="path.title">Como cheguei até aqui.</h2>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- ==================== CONTATO ==================== -->
+  <section id="contato" class="section section--last">
+    <div class="wrap">
+      <p class="sec-label mono"><span>05</span> <span data-i18n="sec.contact">contato</span></p>
+      <div class="contact">
+        <h2 class="contact__title" data-i18n="contact.title">Procuro estágio em desenvolvimento.</h2>
+        <p class="contact__lede" data-i18n="contact.lede">Se você tem uma vaga, uma dúvida sobre algum projeto ou quer o código de alguma coisa daqui — é só chamar. Respondo rápido.</p>
+        <div class="contact__links" id="contactLinks"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <span class="mono">© <span id="year"></span> Murilo Soares</span>
+    <span class="mono foot__built" data-i18n="foot.built">Construído à mão · HTML, CSS e JavaScript · sem framework</span>
+  </div>
+</footer>
+
+<!-- ==================== PALETA DE COMANDOS ==================== -->
+<div class="palette" id="palette" hidden>
+  <div class="palette__scrim" data-close></div>
+  <div class="palette__box" role="dialog" aria-modal="true" aria-label="Paleta de comandos">
+    <div class="palette__field">
+      <span class="mono palette__prompt">&gt;</span>
+      <input id="paletteInput" type="text" autocomplete="off" spellcheck="false" placeholder="Ir para, abrir, copiar…" aria-label="Comando">
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="palette__list" id="paletteList" role="listbox"></ul>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/content.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

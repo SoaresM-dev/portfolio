@@ -1,0 +1,22 @@
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editores
+.vscode/
+.idea/
+*.swp
+
+# dependências e build (não usados hoje, aqui por segurança)
+node_modules/
+dist/
+.cache/
+
+# ambiente
+.env
+.env.*
+
+# Andaimes da publicação (não fazem parte da página)
+_publicar_pagina.*
+_pagina.log
