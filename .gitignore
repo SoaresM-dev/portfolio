@@ -18,5 +18,6 @@ dist/
 .env.*
 
 # Andaimes da publicação (não fazem parte da página)
-_publicar_pagina.*
-_pagina.log
+_*.ps1
+_*.bat
+_*.log

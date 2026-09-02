@@ -39,7 +39,6 @@ const I18N = {
     'about.p2': 'Depois vim para o lado da engenharia. Hoje curso Análise e Desenvolvimento de Sistemas e mantenho o Aiden, um assistente de voz em português rodando inteiramente offline numa máquina CPU-only com 15,7 GB de RAM — uma restrição que obriga a decidir bem em vez de gastar hardware.',
     'about.p3': 'Procuro um estágio onde eu possa fazer as duas coisas: escrever código que se sustenta em teste e entender por que ele existe.',
     'about.f1k': 'formação',      'about.f1v': 'ADS · em curso',
-    'about.f2k': 'semestre atual','about.f2v': 'Estrutura de Dados · Banco de Dados · Script Web',
     'about.f3k': 'foco',          'about.f3v': 'Back-end em Python e front-end',
     'about.f4k': 'idiomas',       'about.f4v': 'Português nativo · Inglês técnico',
     'about.f5k': 'buscando',      'about.f5v': 'Estágio remoto ou híbrido',
@@ -94,7 +93,6 @@ const I18N = {
     'about.p2': 'Then I moved to the engineering side. I am studying Systems Analysis and Development and I maintain Aiden, a Portuguese-language voice assistant running fully offline on a CPU-only machine with 15.7 GB of RAM — a constraint that forces good decisions instead of more hardware.',
     'about.p3': 'I am looking for an internship where I can do both: write code that holds up under tests and understand why it exists.',
     'about.f1k': 'education',   'about.f1v': 'Systems Analysis & Development · in progress',
-    'about.f2k': 'this term',   'about.f2v': 'Data Structures · Databases · Web Scripting',
     'about.f3k': 'focus',       'about.f3v': 'Python back-end and front-end',
     'about.f4k': 'languages',   'about.f4v': 'Portuguese native · technical English',
     'about.f5k': 'looking for', 'about.f5v': 'Remote or hybrid internship',
@@ -208,6 +206,9 @@ const PROJECTS = [
     featured: true,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
+    // Segunda etiqueta: o repositório é público, mas o projeto continua em
+    // curso — a v4.5 mede uso e cinco decisões seguem em aberto.
+    status2: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
     name: 'Aiden',
     tagline: {
       pt: 'Assistente de voz em português rodando 100% offline numa máquina sem GPU.',

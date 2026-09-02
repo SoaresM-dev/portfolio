@@ -70,6 +70,7 @@
         <div class="card__top">
           <span class="card__year mono">${esc(p.year)}</span>
           <span class="badge badge--${p.status.key}">${esc(tx(p.status))}</span>
+          ${p.status2 ? `<span class="badge badge--${p.status2.key}">${esc(tx(p.status2))}</span>` : ''}
         </div>
         <h3 class="card__name">${esc(tx(p.name))}</h3>
         <p class="card__tagline">${esc(tx(p.tagline))}</p>
