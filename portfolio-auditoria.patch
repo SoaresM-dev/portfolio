@@ -1,0 +1,359 @@
+From 5198168a1010daf199c6d8437a045f46f7c1ce22 Mon Sep 17 00:00:00 2001
+From: Murilo Soares <soaresmurilor@gmail.com>
+Date: Thu, 3 Sep 2026 02:44:33 +0000
+Subject: [PATCH] Acessibilidade em 100, dados estruturados e os projetos novos
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Auditoria com Lighthouse (Chromium headless, emulação de celular). Antes:
+performance 98, acessibilidade 96, boas práticas 96, SEO 100. Depois:
+performance 97-99 (a medição varia entre execuções), acessibilidade 100.
+
+ACESSIBILIDADE
+- Contraste: `--txt-3` era #6b7684 sobre #08090b, 4,32:1 — abaixo do mínimo
+  4,5:1 do WCAG AA para texto pequeno. Uma variável, dezesseis elementos
+  reprovando. Agora #8d9bae, 7,05:1, que passa até no AAA, mantendo a mesma
+  matiz e saturação.
+- Nome acessível não continha o texto visível em três controles (a marca, o
+  botão de busca e o de idioma) — quem usa controle por voz diz o que lê na
+  tela, e o comando não encontrava o botão.
+- `.brand__name` sumia no celular com `display:none`, que tira o texto do
+  leitor de tela junto com a tela: sobrava "MS", que o leitor soletra. Trocado
+  por ocultação apenas visual.
+
+DESCOBERTA E CONTEÚDO
+- JSON-LD (schema.org/Person): o Google passa a entender quem é e o que
+  procura em vez de adivinhar pelo texto.
+- `<noscript>` com projetos, links e contato. Projetos, stack, trajetória e
+  contato são injetados por JavaScript a partir de content.js — sem script,
+  a página era uma casca vazia para rastreadores e para quem tem JS desligado.
+- sitemap.xml, referenciado no robots.txt.
+
+DADOS DESATUALIZADOS
+- 521 -> 524 testes e 165 -> 169 KB de DECISOES.md, depois da correção da
+  suíte do Aiden.
+- URL do LinkedIn apontando para a antiga; agora a personalizada.
+- Painel Convertta sai de "em desenvolvimento" para código aberto, com os
+  números reais e o link do repositório.
+- Projeto novo: modelagem e consultas de tráfego pago em SQL.
+- Currículo em PDF no bloco de contato (`assets/murilo-soares-cv.pdf`).
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Kz7TRemAsKJZnNoNbpgCLX
+---
+ assets/css/style.css | 11 +++++--
+ assets/js/content.js | 69 ++++++++++++++++++++++++++++++++++----------
+ assets/js/main.js    |  1 +
+ index.html           | 60 ++++++++++++++++++++++++++++++++++----
+ robots.txt           |  2 ++
+ sitemap.xml          |  9 ++++++
+ 6 files changed, 129 insertions(+), 23 deletions(-)
+ create mode 100644 sitemap.xml
+
+diff --git a/assets/css/style.css b/assets/css/style.css
+index 9a50969..023508f 100644
+--- a/assets/css/style.css
++++ b/assets/css/style.css
+@@ -12,7 +12,7 @@
+   --line-2:    rgba(255,255,255,.14);
+   --txt:       #e7ebf0;
+   --txt-2:     #a2acbb;
+-  --txt-3:     #6b7684;
++  --txt-3:     #8d9bae;
+   --acc:       #22d3ee;
+   --acc-dim:   rgba(34,211,238,.14);
+   --acc-glow:  rgba(34,211,238,.35);
+@@ -451,7 +451,14 @@ kbd{
+   .kbd-hint kbd{ display:none; }
+   .section{ padding:64px 0; }
+   .stack{ grid-template-columns:1fr; }
+-  .brand__name{ display:none; }
++  /* `display:none` tirava o nome do leitor de tela junto com a tela. No
++     celular sobrava só "MS", que o leitor soletra. Isto esconde visualmente
++     e mantém o texto na árvore de acessibilidade. */
++  .brand__name{
++    position:absolute; width:1px; height:1px; margin:-1px;
++    padding:0; border:0; overflow:hidden; white-space:nowrap;
++    clip:rect(0 0 0 0); clip-path:inset(50%);
++  }
+   .card{ padding:20px; }
+   .contact__links{ flex-direction:column; align-items:stretch; }
+   .cbox{ min-width:0; }
+diff --git a/assets/js/content.js b/assets/js/content.js
+index a0f15cc..d251054 100644
+--- a/assets/js/content.js
++++ b/assets/js/content.js
+@@ -8,8 +8,9 @@ const CONFIG = {
+   email: 'soaresmurilor@gmail.com',
+   github: 'https://github.com/SoaresM-dev',
+   githubUser: 'SoaresM-dev',
+-  linkedin: 'https://www.linkedin.com/in/murilo-soares-04523740a/',
+-  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' }
++  linkedin: 'https://www.linkedin.com/in/murilo-soares-dev/',
++  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' },
++  cv: 'assets/murilo-soares-cv.pdf'
+ };
+ 
+ /* ---------- textos estáticos ---------- */
+@@ -137,7 +138,7 @@ const TERM = {
+     { t: 'cmd',  v: 'cat foco.txt' },
+     { t: 'out',  v: 'back-end em Python · front-end · banco de dados' },
+     { t: 'cmd',  v: 'aiden --status' },
+-    { t: 'ok',   v: '● online   521 testes   27 skills   0 chamadas em nuvem' },
++    { t: 'ok',   v: '● online   524 testes   27 skills   0 chamadas em nuvem' },
+     { t: 'cmd',  v: 'status --vaga' },
+     { t: 'ok',   v: '● procurando estágio · remoto ou híbrido' },
+     { t: 'cmd',  v: '' }
+@@ -148,7 +149,7 @@ const TERM = {
+     { t: 'cmd',  v: 'cat focus.txt' },
+     { t: 'out',  v: 'python back-end · front-end · databases' },
+     { t: 'cmd',  v: 'aiden --status' },
+-    { t: 'ok',   v: '● online   521 tests   27 skills   0 cloud calls' },
++    { t: 'ok',   v: '● online   524 tests   27 skills   0 cloud calls' },
+     { t: 'cmd',  v: 'status --job' },
+     { t: 'ok',   v: '● seeking an internship · remote or hybrid' },
+     { t: 'cmd',  v: '' }
+@@ -169,7 +170,7 @@ const STACK = [
+     { n: 'FastAPI',   w: { pt: 'Servidor do Aiden, com WebSocket', en: 'Aiden server, with WebSocket' } },
+     { n: 'WebSocket', w: { pt: 'Streaming de estado entre o núcleo e o HUD', en: 'State streaming between core and HUD' } },
+     { n: 'REST',      w: { pt: 'Desenho de rotas e contratos de API', en: 'Route design and API contracts' } },
+-    { n: 'pytest',    w: { pt: '521 testes no Aiden, rodando a cada mudança', en: '521 tests in Aiden, run on every change' } },
++    { n: 'pytest',    w: { pt: '524 testes no Aiden, rodando a cada mudança', en: '524 tests in Aiden, run on every change' } },
+     { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } }
+   ]},
+   { group: { pt: 'Front-end', en: 'Front-end' }, items: [
+@@ -216,7 +217,7 @@ const PROJECTS = [
+     },
+     tags: ['Python', 'FastAPI', 'WebSocket', 'pytest', 'Ollama', 'SQLite'],
+     stats: [
+-      { v: '521', l: { pt: 'testes', en: 'tests' } },
++      { v: '524', l: { pt: 'testes', en: 'tests' } },
+       { v: '27',  l: { pt: 'skills', en: 'skills' } },
+       { v: { pt: '8,5s', en: '8.5s' }, l: { pt: 'até a 1ª resposta', en: 'to first answer' } },
+       { v: '0',   l: { pt: 'chamadas em nuvem', en: 'cloud calls' } }
+@@ -226,8 +227,8 @@ const PROJECTS = [
+       en: 'Every decent voice assistant depends on the cloud: latency, per-request cost, and your audio leaving the machine. I wanted one that ran entirely on my computer, in Portuguese — and that computer is CPU-only, 15.7 GB of RAM, no CUDA.'
+     },
+     solution: {
+-      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 521 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 165 KB.',
+-      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 521-test suite that runs on every change. Every engineering decision is recorded in a decision log now 165 KB long.'
++      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 524 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 169 KB.',
++      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 524-test suite that runs on every change. Every engineering decision is recorded in a decision log now 169 KB long.'
+     },
+     result: {
+       pt: 'Tempo até a primeira resposta caiu de 14,8s para 8,5s (−42%) e a taxa de erro de transcrição de 31% para 24,7%, na mesma máquina e sem trocar hardware. Roda sem console, sobe com o Windows e desliga por comando de voz.',
+@@ -268,9 +269,9 @@ const PROJECTS = [
+   },
+   {
+     id: 'painel-convertta',
+-    featured: false,
++    featured: true,
+     year: '2026',
+-    status: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
++    status: { key: 'live', pt: 'código aberto', en: 'open source' },
+     name: { pt: 'Painel Convertta', en: 'Convertta Panel' },
+     tagline: {
+       pt: 'Aplicação full-stack para acompanhar leads e custo por lead das campanhas — construída porque eu precisava dela.',
+@@ -278,8 +279,10 @@ const PROJECTS = [
+     },
+     tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'Docker', 'GitHub Actions', 'Modelagem'],
+     stats: [
++      { v: '43', l: { pt: 'testes em CI', en: 'tests in CI' } },
+       { v: '3', l: { pt: 'entidades · escopo travado', en: 'entities · locked scope' } },
+-      { v: 'JWT', l: { pt: 'autenticação', en: 'authentication' } }
++      { v: 'JWT', l: { pt: 'autenticação', en: 'authentication' } },
++      { v: '1', l: { pt: 'comando para subir tudo', en: 'command to run it all' } }
+     ],
+     problem: {
+       pt: 'Leads e campanhas de vários clientes espalhados em planilhas. Descobrir o custo por lead de uma campanha específica custava meia hora de trabalho manual.',
+@@ -290,10 +293,44 @@ const PROJECTS = [
+       en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + Vite front-end and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
+     },
+     result: {
+-      pt: 'Em desenvolvimento. O objetivo é uma URL pública com conta de demonstração, testes em CI e o custo por lead calculado automaticamente por campanha.',
+-      en: 'In progress. The goal is a public URL with a demo account, CI-run tests, and cost per lead computed automatically per campaign.'
++      pt: '43 testes rodando contra PostgreSQL na CI, cada um com banco limpo. Um deles existe só para travar o erro de fan-out: juntar campanhas e leads no mesmo JOIN multiplicaria o investimento pelo número de leads — defeito que só apareceria depois de o número já ter sido mostrado ao cliente. `docker compose up` sobe banco, migrações, dados de demonstração, API e painel.',
++      en: '43 tests running against PostgreSQL in CI, each with a clean database. One exists purely to pin down the fan-out bug: joining campaigns and leads in the same JOIN would multiply spend by the number of leads — a defect that would only surface after the number had been shown to the client. `docker compose up` brings up database, migrations, demo data, API and dashboard.'
+     },
+-    links: []
++    links: [
++      { href: 'https://github.com/SoaresM-dev/painel-convertta', label: { pt: 'Repositório', en: 'Repository' } }
++    ]
++  },
++  {
++    id: 'sql-trafego',
++    featured: false,
++    year: '2026',
++    status: { key: 'live', pt: 'código aberto', en: 'open source' },
++    name: { pt: 'Modelagem e consultas de tráfego pago', en: 'Paid-traffic modeling and queries' },
++    tagline: {
++      pt: 'Dez perguntas de reunião de cliente respondidas em SQL, com a saída de cada uma conferida pela CI.',
++      en: 'Ten client-meeting questions answered in SQL, with every output checked by CI.'
++    },
++    tags: ['SQL', 'PostgreSQL', 'Modelagem', 'GitHub Actions'],
++    stats: [
++      { v: '10', l: { pt: 'consultas de negócio', en: 'business queries' } },
++      { v: '6', l: { pt: 'tabelas em estrela', en: 'star-schema tables' } },
++      { v: { pt: '3,6×', en: '3.6\u00d7' }, l: { pt: 'ganho medido com índice', en: 'measured index speedup' } }
++    ],
++    problem: {
++      pt: 'Repositório de SQL costuma ser um arquivo de consultas que ninguém consegue verificar. Se a semente usa random(), nenhuma saída pode ser comparada com nada — o repositório inteiro vira "confia em mim".',
++      en: 'A SQL repo is usually a file of queries nobody can verify. If the seed uses random(), no output can be compared to anything — the whole repo becomes "trust me".'
++    },
++    solution: {
++      pt: 'Modelo em estrela para métricas de tráfego pago, com CHECKs que impedem CTR acima de 100% e receita contada duas vezes. A semente é determinística: os números vêm de md5() convertido para inteiro, sem random() em lugar nenhum. A CI sobe um PostgreSQL 16, semeia e compara a saída das dez consultas com arquivos esperados. As consultas usam LAG, ROW_NUMBER com PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS e HAVING sobre agregado.',
++      en: 'A star schema for paid-traffic metrics, with CHECKs that make CTR above 100% and double-counted revenue impossible. The seed is deterministic: numbers come from md5() cast to integer, with no random() anywhere. CI spins up PostgreSQL 16, seeds it and compares all ten query outputs against expected files. The queries use LAG, ROW_NUMBER with PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS and HAVING over aggregates.'
++    },
++    result: {
++      pt: 'A semente planta de propósito os casos que duas consultas existem para achar — campanha que gasta sem converter e cliente que parou de receber lead — porque consulta que nunca devolve linha não prova nada. A medição de índice está registrada com EXPLAIN ANALYZE, inclusive uma previsão minha que a medição desmentiu.',
++      en: 'The seed deliberately plants the cases two of the queries exist to catch — a campaign burning budget without converting, and a client that stopped receiving leads — because a query that never returns a row proves nothing. The index measurement is recorded with EXPLAIN ANALYZE, including a prediction of mine the measurement disproved.'
++    },
++    links: [
++      { href: 'https://github.com/SoaresM-dev/sql-trafego-pago', label: { pt: 'Repositório', en: 'Repository' } }
++    ]
+   },
+   {
+     id: 'estruturas-c',
+@@ -355,8 +392,8 @@ const TIMELINE = [
+     when: { pt: 'A regra que mudou o rumo', en: 'The rule that changed course' },
+     title: { pt: 'Capacidade não exercitada não conta', en: 'Capability not exercised does not count' },
+     body: {
+-      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 521 testes, widget na tela, desligamento por voz.',
+-      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 521 tests, on-screen widget, voice shutdown.'
++      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 524 testes, widget na tela, desligamento por voz.',
++      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 524 tests, on-screen widget, voice shutdown.'
+     }
+   },
+   {
+diff --git a/assets/js/main.js b/assets/js/main.js
+index 85b6e73..d78f142 100644
+--- a/assets/js/main.js
++++ b/assets/js/main.js
+@@ -112,6 +112,7 @@
+       { k: t('contact.mail'), v: CONFIG.email,        href: 'mailto:' + CONFIG.email },
+       { k: 'GitHub',          v: '@' + CONFIG.githubUser, href: CONFIG.github },
+       { k: 'LinkedIn',        v: CONFIG.name,          href: CONFIG.linkedin },
++      { k: lang === 'pt' ? 'Currículo' : 'Résumé', v: lang === 'pt' ? 'PDF · uma página' : 'PDF · one page', href: CONFIG.cv },
+       { k: lang === 'pt' ? 'Localização' : 'Location', v: tx(CONFIG.location), href: null }
+     ];
+     $('#contactLinks').innerHTML = items.map(i => i.href
+diff --git a/index.html b/index.html
+index d8c300c..fc5f99a 100644
+--- a/index.html
++++ b/index.html
+@@ -29,6 +29,30 @@
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
++<!-- Dados estruturados. O Google entende "Murilo Soares é uma pessoa,
++     desenvolvedor, com estes perfis" em vez de adivinhar pelo texto. Custa
++     zero em desempenho: é um script de tipo application/ld+json, que o
++     navegador não executa. -->
++<script type="application/ld+json">
++{
++  "@context": "https://schema.org",
++  "@type": "Person",
++  "name": "Murilo Soares",
++  "url": "https://soaresm-dev.github.io/portfolio/",
++  "image": "https://soaresm-dev.github.io/portfolio/assets/og.png",
++  "email": "mailto:soaresmurilor@gmail.com",
++  "jobTitle": "Desenvolvedor Full-Stack",
++  "description": "Estudante de Análise e Desenvolvimento de Sistemas. Assistente de voz 100% offline em Python, aplicações full-stack em FastAPI e PostgreSQL, e sites orientados a conversão.",
++  "knowsLanguage": ["pt-BR", "en"],
++  "knowsAbout": ["Python", "FastAPI", "PostgreSQL", "SQL", "JavaScript", "React", "Docker", "pytest"],
++  "seeks": { "@type": "Demand", "name": "Estágio em desenvolvimento de software" },
++  "sameAs": [
++    "https://github.com/SoaresM-dev",
++    "https://www.linkedin.com/in/murilo-soares-dev/"
++  ]
++}
++</script>
++
+ <link rel="stylesheet" href="assets/css/style.css">
+ <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2308090b'/><text y='68' x='50' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%2322d3ee'>MS</text></svg>">
+ </head>
+@@ -43,8 +67,8 @@
+ 
+ <header class="nav" id="nav">
+   <div class="nav__inner">
+-    <a class="brand" href="#top" aria-label="Murilo Soares">
+-      <span class="brand__mark">MS</span>
++    <a class="brand" href="#top">
++      <span class="brand__mark" aria-hidden="true">MS</span>
+       <span class="brand__name">Murilo Soares</span>
+     </a>
+     <nav class="nav__links" aria-label="Seções">
+@@ -55,16 +79,42 @@
+       <a href="#contato"  data-nav data-i18n="nav.contact">Contato</a>
+     </nav>
+     <div class="nav__tools">
+-      <button class="kbd-hint" id="paletteBtn" aria-label="Abrir paleta de comandos">
+-        <span data-i18n="nav.search">Buscar</span><kbd>Ctrl</kbd><kbd>K</kbd>
++      <button class="kbd-hint" id="paletteBtn" aria-keyshortcuts="Control+K">
++        <span data-i18n="nav.search">Buscar</span><kbd aria-hidden="true">Ctrl</kbd><kbd aria-hidden="true">K</kbd>
+       </button>
+-      <button class="lang" id="langBtn" aria-label="Alternar idioma / Toggle language">
++      <button class="lang" id="langBtn" aria-label="PT/EN — alternar idioma">
+         <span class="lang__opt is-on" data-lang-opt="pt">PT</span><span class="lang__sep">/</span><span class="lang__opt" data-lang-opt="en">EN</span>
+       </button>
+     </div>
+   </div>
+ </header>
+ 
++<!-- Projetos, stack, trajetória e contato são injetados por JavaScript a
++     partir de content.js. Quem não executa JS — parte dos rastreadores, o
++     bot de pré-visualização de alguns aplicativos, e qualquer pessoa com o
++     JS desligado — via uma casca vazia. Isto é o mínimo que o conteúdo
++     precisa dizer sem script nenhum. -->
++<noscript>
++  <div class="wrap" style="padding:32px 0;border-bottom:1px solid #262b36">
++    <h2>Murilo Soares — Desenvolvedor Full-Stack</h2>
++    <p>Estudante de Análise e Desenvolvimento de Sistemas, buscando estágio. Remoto ou híbrido.</p>
++    <p><strong>Projetos:</strong></p>
++    <ul>
++      <li><a href="https://github.com/SoaresM-dev/aiden">Aiden</a> — assistente de voz em português, 100% offline, numa máquina sem GPU. Python, FastAPI, 524 testes.</li>
++      <li><a href="https://github.com/SoaresM-dev/painel-convertta">Painel Convertta</a> — aplicação full-stack para acompanhar leads e custo por lead. FastAPI, PostgreSQL, React, Docker, 43 testes em CI.</li>
++      <li><a href="https://github.com/SoaresM-dev/sql-trafego-pago">Modelagem e consultas de tráfego pago</a> — dez consultas de negócio em SQL, com a saída conferida pela CI.</li>
++      <li>Convertta — sites e landing pages orientados a conversão, para clientes reais.</li>
++    </ul>
++    <p>
++      <a href="https://github.com/SoaresM-dev">GitHub</a> ·
++      <a href="https://www.linkedin.com/in/murilo-soares-dev/">LinkedIn</a> ·
++      <a href="mailto:soaresmurilor@gmail.com">soaresmurilor@gmail.com</a> ·
++      <a href="assets/murilo-soares-cv.pdf">Currículo em PDF</a>
++    </p>
++    <p>Esta página tem uma versão interativa. Ligue o JavaScript para vê-la.</p>
++  </div>
++</noscript>
++
+ <main id="top">
+ 
+   <!-- ==================== HERO ==================== -->
+diff --git a/robots.txt b/robots.txt
+index c2a49f4..dfadb79 100644
+--- a/robots.txt
++++ b/robots.txt
+@@ -1,2 +1,4 @@
+ User-agent: *
+ Allow: /
++
++Sitemap: https://soaresm-dev.github.io/portfolio/sitemap.xml
+diff --git a/sitemap.xml b/sitemap.xml
+new file mode 100644
+index 0000000..b3aaedc
+--- /dev/null
++++ b/sitemap.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
++  <url>
++    <loc>https://soaresm-dev.github.io/portfolio/</loc>
++    <lastmod>2026-09-03</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>1.0</priority>
++  </url>
++</urlset>
+-- 
+2.43.0
+
