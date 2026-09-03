@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://soaresm-dev.github.io/portfolio/sitemap.xml

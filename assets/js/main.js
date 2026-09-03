@@ -112,6 +112,7 @@
       { k: t('contact.mail'), v: CONFIG.email,        href: 'mailto:' + CONFIG.email },
       { k: 'GitHub',          v: '@' + CONFIG.githubUser, href: CONFIG.github },
       { k: 'LinkedIn',        v: CONFIG.name,          href: CONFIG.linkedin },
+      { k: lang === 'pt' ? 'Currículo' : 'Résumé', v: lang === 'pt' ? 'PDF · uma página' : 'PDF · one page', href: CONFIG.cv },
       { k: lang === 'pt' ? 'Localização' : 'Location', v: tx(CONFIG.location), href: null }
     ];
     $('#contactLinks').innerHTML = items.map(i => i.href

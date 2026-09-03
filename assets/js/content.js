@@ -8,8 +8,9 @@ const CONFIG = {
   email: 'soaresmurilor@gmail.com',
   github: 'https://github.com/SoaresM-dev',
   githubUser: 'SoaresM-dev',
-  linkedin: 'https://www.linkedin.com/in/murilo-soares-04523740a/',
-  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' }
+  linkedin: 'https://www.linkedin.com/in/murilo-soares-dev/',
+  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' },
+  cv: 'assets/murilo-soares-cv.pdf'
 };
 
 /* ---------- textos estáticos ---------- */
@@ -137,7 +138,7 @@ const TERM = {
     { t: 'cmd',  v: 'cat foco.txt' },
     { t: 'out',  v: 'back-end em Python · front-end · banco de dados' },
     { t: 'cmd',  v: 'aiden --status' },
-    { t: 'ok',   v: '● online   521 testes   27 skills   0 chamadas em nuvem' },
+    { t: 'ok',   v: '● online   524 testes   27 skills   0 chamadas em nuvem' },
     { t: 'cmd',  v: 'status --vaga' },
     { t: 'ok',   v: '● procurando estágio · remoto ou híbrido' },
     { t: 'cmd',  v: '' }
@@ -148,7 +149,7 @@ const TERM = {
     { t: 'cmd',  v: 'cat focus.txt' },
     { t: 'out',  v: 'python back-end · front-end · databases' },
     { t: 'cmd',  v: 'aiden --status' },
-    { t: 'ok',   v: '● online   521 tests   27 skills   0 cloud calls' },
+    { t: 'ok',   v: '● online   524 tests   27 skills   0 cloud calls' },
     { t: 'cmd',  v: 'status --job' },
     { t: 'ok',   v: '● seeking an internship · remote or hybrid' },
     { t: 'cmd',  v: '' }
@@ -169,7 +170,7 @@ const STACK = [
     { n: 'FastAPI',   w: { pt: 'Servidor do Aiden, com WebSocket', en: 'Aiden server, with WebSocket' } },
     { n: 'WebSocket', w: { pt: 'Streaming de estado entre o núcleo e o HUD', en: 'State streaming between core and HUD' } },
     { n: 'REST',      w: { pt: 'Desenho de rotas e contratos de API', en: 'Route design and API contracts' } },
-    { n: 'pytest',    w: { pt: '521 testes no Aiden, rodando a cada mudança', en: '521 tests in Aiden, run on every change' } },
+    { n: 'pytest',    w: { pt: '524 testes no Aiden, rodando a cada mudança', en: '524 tests in Aiden, run on every change' } },
     { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } }
   ]},
   { group: { pt: 'Front-end', en: 'Front-end' }, items: [
@@ -216,7 +217,7 @@ const PROJECTS = [
     },
     tags: ['Python', 'FastAPI', 'WebSocket', 'pytest', 'Ollama', 'SQLite'],
     stats: [
-      { v: '521', l: { pt: 'testes', en: 'tests' } },
+      { v: '524', l: { pt: 'testes', en: 'tests' } },
       { v: '27',  l: { pt: 'skills', en: 'skills' } },
       { v: { pt: '8,5s', en: '8.5s' }, l: { pt: 'até a 1ª resposta', en: 'to first answer' } },
       { v: '0',   l: { pt: 'chamadas em nuvem', en: 'cloud calls' } }
@@ -226,8 +227,8 @@ const PROJECTS = [
       en: 'Every decent voice assistant depends on the cloud: latency, per-request cost, and your audio leaving the machine. I wanted one that ran entirely on my computer, in Portuguese — and that computer is CPU-only, 15.7 GB of RAM, no CUDA.'
     },
     solution: {
-      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 521 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 165 KB.',
-      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 521-test suite that runs on every change. Every engineering decision is recorded in a decision log now 165 KB long.'
+      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 524 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 169 KB.',
+      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 524-test suite that runs on every change. Every engineering decision is recorded in a decision log now 169 KB long.'
     },
     result: {
       pt: 'Tempo até a primeira resposta caiu de 14,8s para 8,5s (−42%) e a taxa de erro de transcrição de 31% para 24,7%, na mesma máquina e sem trocar hardware. Roda sem console, sobe com o Windows e desliga por comando de voz.',
@@ -268,9 +269,9 @@ const PROJECTS = [
   },
   {
     id: 'painel-convertta',
-    featured: false,
+    featured: true,
     year: '2026',
-    status: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
+    status: { key: 'live', pt: 'código aberto', en: 'open source' },
     name: { pt: 'Painel Convertta', en: 'Convertta Panel' },
     tagline: {
       pt: 'Aplicação full-stack para acompanhar leads e custo por lead das campanhas — construída porque eu precisava dela.',
@@ -278,8 +279,10 @@ const PROJECTS = [
     },
     tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'Docker', 'GitHub Actions', 'Modelagem'],
     stats: [
+      { v: '43', l: { pt: 'testes em CI', en: 'tests in CI' } },
       { v: '3', l: { pt: 'entidades · escopo travado', en: 'entities · locked scope' } },
-      { v: 'JWT', l: { pt: 'autenticação', en: 'authentication' } }
+      { v: 'JWT', l: { pt: 'autenticação', en: 'authentication' } },
+      { v: '1', l: { pt: 'comando para subir tudo', en: 'command to run it all' } }
     ],
     problem: {
       pt: 'Leads e campanhas de vários clientes espalhados em planilhas. Descobrir o custo por lead de uma campanha específica custava meia hora de trabalho manual.',
@@ -290,10 +293,44 @@ const PROJECTS = [
       en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + Vite front-end and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
     },
     result: {
-      pt: 'Em desenvolvimento. O objetivo é uma URL pública com conta de demonstração, testes em CI e o custo por lead calculado automaticamente por campanha.',
-      en: 'In progress. The goal is a public URL with a demo account, CI-run tests, and cost per lead computed automatically per campaign.'
+      pt: '43 testes rodando contra PostgreSQL na CI, cada um com banco limpo. Um deles existe só para travar o erro de fan-out: juntar campanhas e leads no mesmo JOIN multiplicaria o investimento pelo número de leads — defeito que só apareceria depois de o número já ter sido mostrado ao cliente. `docker compose up` sobe banco, migrações, dados de demonstração, API e painel.',
+      en: '43 tests running against PostgreSQL in CI, each with a clean database. One exists purely to pin down the fan-out bug: joining campaigns and leads in the same JOIN would multiply spend by the number of leads — a defect that would only surface after the number had been shown to the client. `docker compose up` brings up database, migrations, demo data, API and dashboard.'
     },
-    links: []
+    links: [
+      { href: 'https://github.com/SoaresM-dev/painel-convertta', label: { pt: 'Repositório', en: 'Repository' } }
+    ]
+  },
+  {
+    id: 'sql-trafego',
+    featured: false,
+    year: '2026',
+    status: { key: 'live', pt: 'código aberto', en: 'open source' },
+    name: { pt: 'Modelagem e consultas de tráfego pago', en: 'Paid-traffic modeling and queries' },
+    tagline: {
+      pt: 'Dez perguntas de reunião de cliente respondidas em SQL, com a saída de cada uma conferida pela CI.',
+      en: 'Ten client-meeting questions answered in SQL, with every output checked by CI.'
+    },
+    tags: ['SQL', 'PostgreSQL', 'Modelagem', 'GitHub Actions'],
+    stats: [
+      { v: '10', l: { pt: 'consultas de negócio', en: 'business queries' } },
+      { v: '6', l: { pt: 'tabelas em estrela', en: 'star-schema tables' } },
+      { v: { pt: '3,6×', en: '3.6\u00d7' }, l: { pt: 'ganho medido com índice', en: 'measured index speedup' } }
+    ],
+    problem: {
+      pt: 'Repositório de SQL costuma ser um arquivo de consultas que ninguém consegue verificar. Se a semente usa random(), nenhuma saída pode ser comparada com nada — o repositório inteiro vira "confia em mim".',
+      en: 'A SQL repo is usually a file of queries nobody can verify. If the seed uses random(), no output can be compared to anything — the whole repo becomes "trust me".'
+    },
+    solution: {
+      pt: 'Modelo em estrela para métricas de tráfego pago, com CHECKs que impedem CTR acima de 100% e receita contada duas vezes. A semente é determinística: os números vêm de md5() convertido para inteiro, sem random() em lugar nenhum. A CI sobe um PostgreSQL 16, semeia e compara a saída das dez consultas com arquivos esperados. As consultas usam LAG, ROW_NUMBER com PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS e HAVING sobre agregado.',
+      en: 'A star schema for paid-traffic metrics, with CHECKs that make CTR above 100% and double-counted revenue impossible. The seed is deterministic: numbers come from md5() cast to integer, with no random() anywhere. CI spins up PostgreSQL 16, seeds it and compares all ten query outputs against expected files. The queries use LAG, ROW_NUMBER with PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS and HAVING over aggregates.'
+    },
+    result: {
+      pt: 'A semente planta de propósito os casos que duas consultas existem para achar — campanha que gasta sem converter e cliente que parou de receber lead — porque consulta que nunca devolve linha não prova nada. A medição de índice está registrada com EXPLAIN ANALYZE, inclusive uma previsão minha que a medição desmentiu.',
+      en: 'The seed deliberately plants the cases two of the queries exist to catch — a campaign burning budget without converting, and a client that stopped receiving leads — because a query that never returns a row proves nothing. The index measurement is recorded with EXPLAIN ANALYZE, including a prediction of mine the measurement disproved.'
+    },
+    links: [
+      { href: 'https://github.com/SoaresM-dev/sql-trafego-pago', label: { pt: 'Repositório', en: 'Repository' } }
+    ]
   },
   {
     id: 'estruturas-c',
@@ -355,8 +392,8 @@ const TIMELINE = [
     when: { pt: 'A regra que mudou o rumo', en: 'The rule that changed course' },
     title: { pt: 'Capacidade não exercitada não conta', en: 'Capability not exercised does not count' },
     body: {
-      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 521 testes, widget na tela, desligamento por voz.',
-      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 521 tests, on-screen widget, voice shutdown.'
+      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 524 testes, widget na tela, desligamento por voz.',
+      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 524 tests, on-screen widget, voice shutdown.'
     }
   },
   {

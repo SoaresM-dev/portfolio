@@ -29,6 +29,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Dados estruturados. O Google entende "Murilo Soares é uma pessoa,
+     desenvolvedor, com estes perfis" em vez de adivinhar pelo texto. Custa
+     zero em desempenho: é um script de tipo application/ld+json, que o
+     navegador não executa. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Murilo Soares",
+  "url": "https://soaresm-dev.github.io/portfolio/",
+  "image": "https://soaresm-dev.github.io/portfolio/assets/og.png",
+  "email": "mailto:soaresmurilor@gmail.com",
+  "jobTitle": "Desenvolvedor Full-Stack",
+  "description": "Estudante de Análise e Desenvolvimento de Sistemas. Assistente de voz 100% offline em Python, aplicações full-stack em FastAPI e PostgreSQL, e sites orientados a conversão.",
+  "knowsLanguage": ["pt-BR", "en"],
+  "knowsAbout": ["Python", "FastAPI", "PostgreSQL", "SQL", "JavaScript", "React", "Docker", "pytest"],
+  "seeks": { "@type": "Demand", "name": "Estágio em desenvolvimento de software" },
+  "sameAs": [
+    "https://github.com/SoaresM-dev",
+    "https://www.linkedin.com/in/murilo-soares-dev/"
+  ]
+}
+</script>
+
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2308090b'/><text y='68' x='50' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%2322d3ee'>MS</text></svg>">
 </head>
@@ -43,8 +67,8 @@
 
 <header class="nav" id="nav">
   <div class="nav__inner">
-    <a class="brand" href="#top" aria-label="Murilo Soares">
-      <span class="brand__mark">MS</span>
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">MS</span>
       <span class="brand__name">Murilo Soares</span>
     </a>
     <nav class="nav__links" aria-label="Seções">
@@ -55,15 +79,41 @@
       <a href="#contato"  data-nav data-i18n="nav.contact">Contato</a>
     </nav>
     <div class="nav__tools">
-      <button class="kbd-hint" id="paletteBtn" aria-label="Abrir paleta de comandos">
-        <span data-i18n="nav.search">Buscar</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      <button class="kbd-hint" id="paletteBtn" aria-keyshortcuts="Control+K">
+        <span data-i18n="nav.search">Buscar</span><kbd aria-hidden="true">Ctrl</kbd><kbd aria-hidden="true">K</kbd>
       </button>
-      <button class="lang" id="langBtn" aria-label="Alternar idioma / Toggle language">
+      <button class="lang" id="langBtn" aria-label="PT/EN — alternar idioma">
         <span class="lang__opt is-on" data-lang-opt="pt">PT</span><span class="lang__sep">/</span><span class="lang__opt" data-lang-opt="en">EN</span>
       </button>
     </div>
   </div>
 </header>
+
+<!-- Projetos, stack, trajetória e contato são injetados por JavaScript a
+     partir de content.js. Quem não executa JS — parte dos rastreadores, o
+     bot de pré-visualização de alguns aplicativos, e qualquer pessoa com o
+     JS desligado — via uma casca vazia. Isto é o mínimo que o conteúdo
+     precisa dizer sem script nenhum. -->
+<noscript>
+  <div class="wrap" style="padding:32px 0;border-bottom:1px solid #262b36">
+    <h2>Murilo Soares — Desenvolvedor Full-Stack</h2>
+    <p>Estudante de Análise e Desenvolvimento de Sistemas, buscando estágio. Remoto ou híbrido.</p>
+    <p><strong>Projetos:</strong></p>
+    <ul>
+      <li><a href="https://github.com/SoaresM-dev/aiden">Aiden</a> — assistente de voz em português, 100% offline, numa máquina sem GPU. Python, FastAPI, 524 testes.</li>
+      <li><a href="https://github.com/SoaresM-dev/painel-convertta">Painel Convertta</a> — aplicação full-stack para acompanhar leads e custo por lead. FastAPI, PostgreSQL, React, Docker, 43 testes em CI.</li>
+      <li><a href="https://github.com/SoaresM-dev/sql-trafego-pago">Modelagem e consultas de tráfego pago</a> — dez consultas de negócio em SQL, com a saída conferida pela CI.</li>
+      <li>Convertta — sites e landing pages orientados a conversão, para clientes reais.</li>
+    </ul>
+    <p>
+      <a href="https://github.com/SoaresM-dev">GitHub</a> ·
+      <a href="https://www.linkedin.com/in/murilo-soares-dev/">LinkedIn</a> ·
+      <a href="mailto:soaresmurilor@gmail.com">soaresmurilor@gmail.com</a> ·
+      <a href="assets/murilo-soares-cv.pdf">Currículo em PDF</a>
+    </p>
+    <p>Esta página tem uma versão interativa. Ligue o JavaScript para vê-la.</p>
+  </div>
+</noscript>
 
 <main id="top">
 

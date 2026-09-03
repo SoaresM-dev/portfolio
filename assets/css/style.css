@@ -12,7 +12,7 @@
   --line-2:    rgba(255,255,255,.14);
   --txt:       #e7ebf0;
   --txt-2:     #a2acbb;
-  --txt-3:     #6b7684;
+  --txt-3:     #8d9bae;
   --acc:       #22d3ee;
   --acc-dim:   rgba(34,211,238,.14);
   --acc-glow:  rgba(34,211,238,.35);
@@ -451,7 +451,14 @@ kbd{
   .kbd-hint kbd{ display:none; }
   .section{ padding:64px 0; }
   .stack{ grid-template-columns:1fr; }
-  .brand__name{ display:none; }
+  /* `display:none` tirava o nome do leitor de tela junto com a tela. No
+     celular sobrava só "MS", que o leitor soletra. Isto esconde visualmente
+     e mantém o texto na árvore de acessibilidade. */
+  .brand__name{
+    position:absolute; width:1px; height:1px; margin:-1px;
+    padding:0; border:0; overflow:hidden; white-space:nowrap;
+    clip:rect(0 0 0 0); clip-path:inset(50%);
+  }
   .card{ padding:20px; }
   .contact__links{ flex-direction:column; align-items:stretch; }
   .cbox{ min-width:0; }
