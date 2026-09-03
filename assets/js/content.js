@@ -159,9 +159,10 @@ const TERM = {
 /* ---------- stack ---------- */
 const STACK = [
   { group: { pt: 'Linguagens', en: 'Languages' }, items: [
-    { n: 'Python',     w: { pt: 'Aiden inteiro — pipeline de voz, API e testes', en: 'All of Aiden — voice pipeline, API and tests' } },
     { n: 'JavaScript', w: { pt: 'Esta página, HUD do Aiden, landing pages', en: 'This page, Aiden HUD, landing pages' } },
-    { n: 'SQL',        w: { pt: 'Modelagem e consultas · disciplina de Banco de Dados', en: 'Modeling and queries · Databases coursework' } },
+    { n: 'TypeScript', w: { pt: 'Front do Painel Convertta, em modo estrito', en: 'Convertta Panel front-end, strict mode' } },
+    { n: 'Python',     w: { pt: 'Aiden inteiro — pipeline de voz, API e testes', en: 'All of Aiden — voice pipeline, API and tests' } },
+    { n: 'SQL',        w: { pt: 'Dez consultas de negócio, conferidas pela CI', en: 'Ten business queries, checked by CI' } },
     { n: 'C',          w: { pt: 'Estruturas de dados e alocação dinâmica', en: 'Data structures and dynamic allocation' } },
     { n: 'HTML',       w: { pt: 'Sites e landing pages para clientes', en: 'Client websites and landing pages' } },
     { n: 'CSS',        w: { pt: 'Layout responsivo sem framework', en: 'Responsive layout, no framework' } }
@@ -177,7 +178,8 @@ const STACK = [
     { n: 'DOM & ES6+',      w: { pt: 'Paleta de comandos e i18n desta página', en: 'Command palette and i18n on this page' } },
     { n: 'Design responsivo', w: { pt: 'Todas as landing pages entregues', en: 'Every landing page delivered' } },
     { n: 'Acessibilidade',  w: { pt: 'Navegação por teclado e foco visível', en: 'Keyboard navigation and visible focus' } },
-    { n: 'React',           w: { pt: 'Em estudo — front do Painel Convertta', en: 'Learning — Convertta Panel front-end' }, soon: true }
+    { n: 'React',           w: { pt: 'Front do Painel Convertta, com Vite', en: 'Convertta Panel front-end, with Vite' } },
+    { n: 'TypeScript',      w: { pt: 'Modo estrito, com o contrato da API tipado', en: 'Strict mode, API contract typed' } }
   ]},
   { group: { pt: 'Dados', en: 'Data' }, items: [
     { n: 'PostgreSQL',    w: { pt: 'Banco do Painel Convertta', en: 'Convertta Panel database' } },
@@ -277,7 +279,7 @@ const PROJECTS = [
       pt: 'Aplicação full-stack para acompanhar leads e custo por lead das campanhas — construída porque eu precisava dela.',
       en: 'Full-stack app to track leads and cost per lead across campaigns — built because I needed it.'
     },
-    tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'Docker', 'GitHub Actions', 'Modelagem'],
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'TypeScript', 'Docker', 'GitHub Actions', 'REST', 'Modelagem'],
     stats: [
       { v: '43', l: { pt: 'testes em CI', en: 'tests in CI' } },
       { v: '3', l: { pt: 'entidades · escopo travado', en: 'entities · locked scope' } },
@@ -289,8 +291,8 @@ const PROJECTS = [
       en: 'Leads and campaigns for several clients scattered across spreadsheets. Finding the cost per lead of one campaign took half an hour of manual work.'
     },
     solution: {
-      pt: 'API em FastAPI sobre PostgreSQL com SQLAlchemy e migrações Alembic, autenticação JWT, front em React com Vite e Docker Compose para subir tudo com um comando. Escopo deliberadamente travado em três entidades, um painel e um login — projeto que cresce sem parar é projeto que não sai.',
-      en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + Vite front-end and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
+      pt: 'API em FastAPI sobre PostgreSQL com SQLAlchemy e migrações Alembic, autenticação JWT, front em React com TypeScript em modo estrito e Vite, e Docker Compose para subir tudo com um comando. Escopo deliberadamente travado em três entidades, um painel e um login — projeto que cresce sem parar é projeto que não sai.',
+      en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + strict TypeScript front-end on Vite, and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
     },
     result: {
       pt: '43 testes rodando contra PostgreSQL na CI, cada um com banco limpo. Um deles existe só para travar o erro de fan-out: juntar campanhas e leads no mesmo JOIN multiplicaria o investimento pelo número de leads — defeito que só apareceria depois de o número já ter sido mostrado ao cliente. `docker compose up` sobe banco, migrações, dados de demonstração, API e painel.',
@@ -336,29 +338,33 @@ const PROJECTS = [
     id: 'estruturas-c',
     featured: false,
     year: '2026',
-    status: { key: 'wip', pt: 'em desenvolvimento', en: 'in progress' },
+    status: { key: 'live', pt: 'código aberto', en: 'open source' },
     name: { pt: 'Estruturas de dados em C', en: 'Data structures in C' },
     tagline: {
       pt: 'Biblioteca própria de listas, pilhas e filas com alocação dinâmica — o fundamento sem atalho.',
       en: 'A hand-written library of lists, stacks and queues with dynamic allocation — fundamentals, no shortcuts.'
     },
-    tags: ['C', 'Modelagem'],
+    tags: ['C', 'Modelagem', 'GitHub Actions'],
     stats: [
-      { v: '0', l: { pt: 'vazamentos de memória (meta)', en: 'memory leaks (target)' } }
+      { v: '0', l: { pt: 'vazamentos, medidos no Valgrind', en: 'leaks, measured by Valgrind' } },
+      { v: '23', l: { pt: 'testes', en: 'tests' } },
+      { v: { pt: '2.358×', en: '2,358\u00d7' }, l: { pt: 'lista mais lenta que vetor', en: 'list slower than array' } }
     ],
     problem: {
       pt: 'Framework esconde estrutura de dados. Quem só usa lista pronta não sabe o que acontece quando ela cresce.',
       en: 'Frameworks hide data structures. If you only ever use a ready-made list, you do not know what happens when it grows.'
     },
     solution: {
-      pt: 'Biblioteca em C escrita do zero: lista dinâmica encadeada, pilha, fila e structs próprias, com Makefile, cabeçalhos separados e testes de vazamento de memória. Nasce da disciplina de Estrutura de Dados, mas fica no padrão de repositório público.',
-      en: 'A C library written from scratch: dynamic linked list, stack, queue and custom structs, with a Makefile, separate headers and memory-leak tests. It comes out of my Data Structures coursework but is kept to public-repo standard.'
+      pt: 'Vetor dinâmico, lista duplamente encadeada e fila circular, em C11 estrito, sem uma única extensão de compilador. As três existem porque a escolha entre elas é o assunto: o vetor tem acesso O(1), a lista tem inserção O(1) nas duas pontas, a fila circular troca um malloc por elemento por um arranjo reaproveitado e contíguo.',
+      en: 'Dynamic array, doubly linked list and circular queue, in strict C11 with no compiler extensions. All three exist because choosing between them is the point: the array has O(1) access, the list has O(1) insertion at both ends, and the circular queue trades one malloc per element for a reused, contiguous array.'
     },
     result: {
-      pt: 'Em desenvolvimento. Serve de base para as provas técnicas de estágio, que quase sempre caem em ponteiro e complexidade.',
-      en: 'In progress. It doubles as preparation for internship technical tests, which almost always land on pointers and complexity.'
+      pt: '23 testes cobrindo os defeitos clássicos, não o caminho feliz: a cauda que fica pendurada quando a lista esvazia e volta a encher, e a fila que dá a volta no arranjo e sai fora de ordem. Valgrind com 82 alocações e 82 liberações, gcc e clang com -Werror, e uma bancada que mede o que a teoria promete — em 64 mil elementos, o acesso por índice na lista custa 2.358× o do vetor.',
+      en: '23 tests covering the classic defects rather than the happy path: the tail left dangling when a list empties and refills, and the queue wrapping around the array and coming out in the wrong order. Valgrind reports 82 allocations and 82 frees; gcc and clang both run with -Werror; and a benchmark measures what the theory promises — at 64k elements, indexed access on the list costs 2,358× the array.'
     },
-    links: []
+    links: [
+      { href: 'https://github.com/SoaresM-dev/estruturas-c', label: { pt: 'Repositório', en: 'Repository' } }
+    ]
   }
 ];
 
