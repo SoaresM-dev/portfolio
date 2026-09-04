@@ -171,7 +171,8 @@ const STACK = [
     { n: 'WebSocket', w: { pt: 'Streaming de estado entre o núcleo e o HUD', en: 'State streaming between core and HUD' } },
     { n: 'REST',      w: { pt: 'Desenho de rotas e contratos de API', en: 'Route design and API contracts' } },
     { n: 'pytest',    w: { pt: '524 testes no Aiden, rodando a cada mudança', en: '524 tests in Aiden, run on every change' } },
-    { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } }
+    { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } },
+    { n: 'Node.js',   w: { pt: 'API de consulta de CNPJ, com Express', en: 'CNPJ lookup API, with Express' } }
   ]},
   { group: { pt: 'Front-end', en: 'Front-end' }, items: [
     { n: 'DOM & ES6+',      w: { pt: 'Paleta de comandos e i18n desta página', en: 'Command palette and i18n on this page' } },
@@ -299,6 +300,38 @@ const PROJECTS = [
     },
     links: [
       { href: 'https://github.com/SoaresM-dev/painel-convertta', label: { pt: 'Repositório', en: 'Repository' } }
+    ]
+  },
+  {
+    id: 'consulta-cnpj',
+    featured: false,
+    year: '2026',
+    status: { key: 'live', pt: 'código aberto', en: 'open source' },
+    name: { pt: 'Consulta de CNPJ', en: 'CNPJ lookup' },
+    tagline: {
+      pt: 'API em Node e TypeScript que consulta a Receita Federal — com cache, limite de uso e repetição seletiva.',
+      en: 'A Node and TypeScript API that queries the Brazilian tax authority — with caching, rate limiting and selective retry.'
+    },
+    tags: ['Node.js', 'TypeScript', 'Express', 'REST', 'GitHub Actions'],
+    stats: [
+      { v: '35', l: { pt: 'testes, sem tocar a rede', en: 'tests, no network' } },
+      { v: '0', l: { pt: 'dependência de teste', en: 'test dependencies' } },
+      { v: '3', l: { pt: 'tentativas com espera crescente', en: 'retries with backoff' } }
+    ],
+    problem: {
+      pt: 'Antes de colocar verba num lead, vale saber com quem se está falando: se a empresa existe, se está ativa, o porte, há quanto tempo abriu. É dado público — mas consumir API de terceiro sem cuidado quebra de formas que não dão erro legível.',
+      en: 'Before putting budget behind a lead, it helps to know who you are dealing with: whether the company exists, is active, its size, how old it is. The data is public — but consuming a third-party API carelessly breaks in ways that give no readable error.'
+    },
+    solution: {
+      pt: 'O projeto é pequeno de propósito: uma rota. O que ele mostra é o que se faz quando a chamada de rede falha — timeout explícito, repetição só do que vale a pena repetir (5xx sim, 404 não), espera que dobra a cada tentativa, cache com validade e teto de tamanho, e um limite por IP que protege a cota do fornecedor. O CNPJ é validado pelo dígito verificador antes de tocar a rede.',
+      en: 'The project is deliberately small: one route. What it shows is what you do when the network call fails — explicit timeout, retrying only what is worth retrying (5xx yes, 404 no), backoff that doubles each attempt, a cache with TTL and a size cap, and a per-IP limit that protects the provider quota. The CNPJ is validated by check digit before any network call.'
+    },
+    result: {
+      pt: '35 testes que não tocam a rede: o cliente do fornecedor recebe o fetch por injeção. Rodam no runner embutido do Node, sem framework, em Node 22 e 24 na CI. Um servidor por teste, depois que dois casos reprovaram por estado compartilhado do limitador.',
+      en: '35 tests that never touch the network: the provider client takes fetch by injection. They run on the built-in Node runner, no framework, on Node 22 and 24 in CI. One server per test, after two cases failed from shared rate-limiter state.'
+    },
+    links: [
+      { href: 'https://github.com/SoaresM-dev/consulta-cnpj', label: { pt: 'Repositório', en: 'Repository' } }
     ]
   },
   {
