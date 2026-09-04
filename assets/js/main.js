@@ -88,6 +88,7 @@
           <button class="toggle" data-toggle aria-expanded="${open}">
             <span class="toggle__ico">›</span><span>${open ? t('proj.less') : t('proj.more')}</span>
           </button>
+          ${p.demo ? `<button class="card__demo" data-demo="${esc(p.id)}">${t('proj.demo')}</button>` : ''}
           ${(p.links || []).map(l => `<a class="card__link" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(tx(l.label))} ↗</a>`).join('')}
         </div>
       </article>`;
@@ -219,6 +220,11 @@
     list.push({ label: t('hero.copyMail'), kind: t('palette.action'), run: copyMail });
     list.push({ label: lang === 'pt' ? 'Switch to English' : 'Mudar para português', kind: t('palette.action'), run: () => { lang = lang === 'pt' ? 'en' : 'pt'; applyLang(); } });
 
+    PROJECTS.filter(p => p.demo).forEach(p => list.push({
+      label: tx(p.name) + ' — ' + t('proj.demo'), kind: t('proj.demo'),
+      run: () => openDemo(p.id)
+    }));
+
     PROJECTS.forEach(p => list.push({
       label: tx(p.name), kind: lang === 'pt' ? 'Projeto' : 'Project',
       run: () => { openCards.add(p.id); filter = null; renderStack(); renderProjects();
@@ -253,6 +259,88 @@
   function palRun(i) {
     const hits = $('#paletteList')._hits || [];
     if (hits[i]) { closePalette(); hits[i].run(); }
+  }
+
+  /* ---------------- demonstrações ---------------- */
+
+  /* Os dois arquivos das demos só são baixados no primeiro clique em "Demo".
+     Juntos passam de 40 KB — mais que o resto do site somado — e quem só lê
+     os cartões nunca precisa deles. Carregar sempre seria cobrar de todo
+     visitante o custo de um recurso que a maioria não abre. */
+  let demosPromessa = null;
+
+  function carregarDemos() {
+    if (demosPromessa) return demosPromessa;
+    const um = (src) => new Promise((ok, falha) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = ok;
+      s.onerror = () => falha(new Error(src));
+      document.head.appendChild(s);
+    });
+    demosPromessa = um('assets/js/demos-sql.js')
+      .then(() => um('assets/js/demos.js'))
+      .catch((e) => { demosPromessa = null; throw e; });
+    return demosPromessa;
+  }
+
+  let demoAnterior = null;
+
+  function openDemo(id) {
+    const proj = PROJECTS.find(p => p.id === id);
+    if (!proj) return;
+
+    demoAnterior = document.activeElement;
+    const caixa = $('#demo');
+    $('#demoTitulo').textContent = tx(proj.name);
+    $('#demoSelo').hidden = true;
+    $('#demoNota').hidden = true;
+    $('#demoCorpo').textContent = '';
+    $('#demoCorpo').appendChild(document.createTextNode(t('demo.loading')));
+    caixa.hidden = false;
+    document.body.classList.add('is-locked');
+    $('#demoFechar').focus();
+
+    carregarDemos().then(() => {
+      const d = (window.DEMOS || {})[id];
+      const corpo = $('#demoCorpo');
+      corpo.textContent = '';
+      if (!d) { corpo.appendChild(document.createTextNode(t('demo.failed'))); return; }
+
+      $('#demoTitulo').textContent = tx(proj.name) + ' · ' + tx(d.titulo);
+      const selo = $('#demoSelo');
+      selo.textContent = tx(d.selo); selo.hidden = false;
+
+      d.montar(corpo, { lang, tx, esc });
+
+      const nota = $('#demoNota');
+      nota.textContent = '';
+      nota.appendChild(Object.assign(document.createElement('span'), { className: 'demo__notaK', textContent: t('demo.about') }));
+      nota.appendChild(document.createTextNode(tx(d.nota)));
+      nota.hidden = false;
+    }).catch(() => {
+      const corpo = $('#demoCorpo');
+      corpo.textContent = '';
+      corpo.appendChild(document.createTextNode(t('demo.failed') + ' '));
+      const btn = document.createElement('button');
+      btn.className = 'dm-btn dm-btn--sec';
+      btn.textContent = t('demo.retry');
+      btn.addEventListener('click', () => openDemo(id));
+      corpo.appendChild(btn);
+    });
+  }
+
+  function closeDemo() {
+    const caixa = $('#demo');
+    if (caixa.hidden) return;
+    caixa.hidden = true;
+    /* Zerar o corpo não é faxina: enquanto o nó viver, um <iframe> de demo
+       continua com a página de terceiro carregada e um temporizador de
+       animação continua rodando atrás do modal fechado. */
+    $('#demoCorpo').textContent = '';
+    document.body.classList.remove('is-locked');
+    if (demoAnterior && demoAnterior.isConnected) demoAnterior.focus();
+    demoAnterior = null;
   }
 
   /* ---------------- utilidades ---------------- */
@@ -304,6 +392,10 @@
         return;
       }
 
+      const dm = e.target.closest('[data-demo]');
+      if (dm) { openDemo(dm.dataset.demo); return; }
+
+      if (e.target.closest('[data-demo-close]')) { closeDemo(); return; }
       if (e.target.closest('[data-close]')) closePalette();
 
       const li = e.target.closest('#paletteList li');
@@ -313,6 +405,8 @@
     $('#paletteInput').addEventListener('input', (e) => { palSel = 0; drawPalette(e.target.value); });
 
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !$('#demo').hidden) { closeDemo(); return; }
+
       const open = !$('#palette').hidden;
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open ? closePalette() : openPalette(); return; }
       if (e.key === '/' && !open && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) { e.preventDefault(); openPalette(); return; }

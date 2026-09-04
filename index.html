@@ -242,6 +242,22 @@
   </div>
 </footer>
 
+<!-- ==================== DEMONSTRAÇÕES ==================== -->
+<!-- O conteúdo é montado em JavaScript, por `assets/js/demos.js`, que só é
+     baixado no primeiro clique em "Demo". Aqui fica só a moldura. -->
+<div class="demo" id="demo" hidden>
+  <div class="demo__scrim" data-demo-close></div>
+  <div class="demo__box" role="dialog" aria-modal="true" aria-labelledby="demoTitulo">
+    <header class="demo__top">
+      <h3 class="demo__titulo" id="demoTitulo"></h3>
+      <span class="demo__selo mono" id="demoSelo" hidden></span>
+      <button class="demo__x" id="demoFechar" data-demo-close aria-label="Fechar">×</button>
+    </header>
+    <div class="demo__corpo" id="demoCorpo"></div>
+    <p class="demo__nota" id="demoNota" hidden></p>
+  </div>
+</div>
+
 <!-- ==================== PALETA DE COMANDOS ==================== -->
 <div class="palette" id="palette" hidden>
   <div class="palette__scrim" data-close></div>

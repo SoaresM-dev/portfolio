@@ -51,8 +51,13 @@ const I18N = {
     'projects.clear': 'limpar',
     'projects.empty': 'nenhum projeto com essa tecnologia ainda.',
     'proj.problem': 'Problema', 'proj.solution': 'Solução', 'proj.result': 'Resultado',
+    'demo.close': 'Fechar',
+    'demo.loading': 'Carregando a demonstração…',
+    'demo.failed': 'Não foi possível carregar a demonstração.',
+    'demo.retry': 'Tentar de novo',
+    'demo.about': 'Sobre esta demonstração',
     'proj.more': 'Ler detalhes', 'proj.less': 'Recolher',
-    'proj.repo': 'Repositório', 'proj.demo': 'Ver ao vivo',
+    'proj.repo': 'Repositório', 'proj.demo': 'Demo',
 
     'path.title': 'Como cheguei até aqui.',
 
@@ -105,8 +110,13 @@ const I18N = {
     'projects.clear': 'clear',
     'projects.empty': 'no project with that technology yet.',
     'proj.problem': 'Problem', 'proj.solution': 'Solution', 'proj.result': 'Result',
+    'demo.close': 'Close',
+    'demo.loading': 'Loading the demo…',
+    'demo.failed': 'The demo could not be loaded.',
+    'demo.retry': 'Try again',
+    'demo.about': 'About this demo',
     'proj.more': 'Read details', 'proj.less': 'Collapse',
-    'proj.repo': 'Repository', 'proj.demo': 'Live demo',
+    'proj.repo': 'Repository', 'proj.demo': 'Demo',
 
     'path.title': 'How I got here.',
 
@@ -206,6 +216,7 @@ const STACK = [
 const PROJECTS = [
   {
     id: 'aiden',
+    demo: true,
     featured: true,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
@@ -242,6 +253,7 @@ const PROJECTS = [
   },
   {
     id: 'convertta-sites',
+    demo: true,
     featured: false,
     year: '2025–2026',
     status: { key: 'live', pt: 'entregue', en: 'delivered' },
@@ -271,6 +283,7 @@ const PROJECTS = [
   },
   {
     id: 'painel-convertta',
+    demo: true,
     featured: true,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
@@ -304,6 +317,7 @@ const PROJECTS = [
   },
   {
     id: 'consulta-cnpj',
+    demo: true,
     featured: false,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
@@ -336,6 +350,7 @@ const PROJECTS = [
   },
   {
     id: 'sql-trafego',
+    demo: true,
     featured: false,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
@@ -368,6 +383,7 @@ const PROJECTS = [
   },
   {
     id: 'estruturas-c',
+    demo: true,
     featured: false,
     year: '2026',
     status: { key: 'live', pt: 'código aberto', en: 'open source' },
