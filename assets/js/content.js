@@ -9,8 +9,7 @@ const CONFIG = {
   github: 'https://github.com/SoaresM-dev',
   githubUser: 'SoaresM-dev',
   linkedin: 'https://www.linkedin.com/in/murilo-soares-dev/',
-  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' },
-  cv: 'assets/murilo-soares-cv.pdf'
+  location: { pt: 'Brasil · remoto ou híbrido', en: 'Brazil · remote or hybrid' }
 };
 
 /* ---------- textos estáticos ---------- */
