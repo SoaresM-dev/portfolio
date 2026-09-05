@@ -170,80 +170,369 @@
 
   /* ============================================================
      2. Convertta — sites e landing pages
+
+     Três páginas inteiras, não três recortes de hero. Cada uma tem
+     navegação, dobra, prova, seção de conteúdo, chamada final e rodapé —
+     e, principalmente, **identidade própria**: a de SaaS é escura e
+     técnica, a de e-commerce é clara e quente, a de advocacia é sóbria com
+     serifa e dourado. Reaproveitar a paleta escura do portfólio nas três
+     era o que fazia parecerem componentes do portfólio em vez de sites de
+     clientes diferentes.
+
+     Aqui o conteúdo é montado com `innerHTML`, e não com o construtor de
+     nós: o texto é todo meu, escrito neste arquivo, sem nada vindo do
+     visitante — a preocupação com escape que justifica o `el()` nas outras
+     demos não existe nesta, e a marcação fica legível.
      ============================================================ */
 
+  const ICONE = {
+    check: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 4.5 6.5 12 2.5 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    raio: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 1 3 9h4l-1 6 6-8H8l1-6Z" fill="currentColor"/></svg>',
+    seta: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    banco: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6.5 8 2.5l6 4M3 7v5m3.3-5v5m3.4-5v5M13 7v5M1.5 13.5h13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    par: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5h5M2 11h5m2-6h5M9 11h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/></svg>',
+    escudo: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 13 3.4v4.2c0 3.2-2.1 5.6-5 6.8-2.9-1.2-5-3.6-5-6.8V3.4L8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+    balanca: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v12M4 14h8M3 5h10M3 5 1.5 9h3L3 5Zm10 0-1.5 4h3L13 5Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    relogio: '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.6V8l2.4 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    doc: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.8h5l3 3v9.4H4V1.8Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9 1.8v3h3M6 8.5h4M6 11h4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    estrela: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m8 1.8 1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6L8 1.8Z" fill="currentColor"/></svg>',
+    grao: '<svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8" rx="4.2" ry="6.2" fill="currentColor" opacity=".9"/><path d="M8 2.2c-2 2-2 9.6 0 11.6" fill="none" stroke="#fff" stroke-width="1.1" opacity=".75"/></svg>',
+    caminhao: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 4.5h7v6h-7v-6Zm7 2h3l2 2v2h-5v-4Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="4.5" cy="12" r="1.4" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="12" r="1.4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>'
+  };
+
+  /* --- 1. SaaS ------------------------------------------------ */
+
+  const SAAS = {
+    dominio: 'fluxo.app',
+    nav: { pt: ['Recursos', 'Integrações', 'Preços'], en: ['Features', 'Integrations', 'Pricing'] },
+    navCta: { pt: 'Entrar', en: 'Log in' },
+    badge: { pt: 'Conciliação bancária automática', en: 'Automatic bank reconciliation' },
+    h1a: { pt: 'Feche o mês em', en: 'Close the month in' },
+    h1b: { pt: '20 minutos', en: '20 minutes' },
+    h1c: { pt: ', não em três dias.', en: ', not three days.' },
+    sub: {
+      pt: 'O Fluxo lê o extrato, encontra o lançamento correspondente e deixa só as exceções para você. O resto do fechamento continua sendo seu trabalho — a digitação, não.',
+      en: 'Fluxo reads the statement, finds the matching entry and leaves only the exceptions to you. The rest of the close is still your job — the typing is not.'
+    },
+    cta: { pt: 'Testar 14 dias grátis', en: 'Start 14-day trial' },
+    cta2: { pt: 'Ver como funciona', en: 'See how it works' },
+    micro: { pt: 'Sem cartão de crédito · cancela em um clique', en: 'No credit card · cancel in one click' },
+    painel: { pt: 'Conciliação · Agosto', en: 'Reconciliation · August' },
+    progresso: { pt: '342 de 348 lançamentos conciliados', en: '342 of 348 entries reconciled' },
+    linhas: {
+      pt: [
+        ['12/08', 'Transferência — Móveis Aurora', 'R$ 4.280,00', 'ok'],
+        ['12/08', 'Tarifa de manutenção', 'R$ 39,90', 'ok'],
+        ['13/08', 'PIX recebido — não identificado', 'R$ 1.150,00', 'pend'],
+        ['13/08', 'Boleto — Nexo Papelaria', 'R$ 862,40', 'ok']
+      ],
+      en: [
+        ['08/12', 'Transfer — Aurora Furniture', 'R$ 4,280.00', 'ok'],
+        ['08/12', 'Maintenance fee', 'R$ 39.90', 'ok'],
+        ['08/13', 'Incoming PIX — unidentified', 'R$ 1,150.00', 'pend'],
+        ['08/13', 'Invoice — Nexo Stationery', 'R$ 862.40', 'ok']
+      ]
+    },
+    chips: { pt: ['Conciliado', 'A revisar'], en: ['Matched', 'To review'] },
+    provaTitulo: { pt: 'Escritórios que fecham mais de 1.200 balancetes por mês', en: 'Firms closing more than 1,200 trial balances a month' },
+    marcas: ['CONTÁBIL VEGA', 'NEXO', 'AURORA', 'PRISMA', 'MERIDIANO'],
+    recursos: {
+      pt: [
+        ['banco', 'Importa OFX, CSV e API', 'Conecta os bancos que o escritório já usa. O que não tem API entra por arquivo, sem digitação.'],
+        ['par', 'Sugere o par certo', 'Cruza valor, data e histórico. O que casa sozinho não aparece na sua tela — só a exceção aparece.'],
+        ['escudo', 'Trilha de auditoria', 'Toda conciliação guarda quem confirmou e quando. O papel do fechamento sai pronto.']
+      ],
+      en: [
+        ['banco', 'Imports OFX, CSV and API', 'Connects the banks the firm already uses. Anything without an API comes in as a file, with no typing.'],
+        ['par', 'Suggests the right match', 'Cross-checks amount, date and memo. What matches on its own never reaches your screen — only the exception does.'],
+        ['escudo', 'Audit trail', 'Every reconciliation records who confirmed it and when. The closing paperwork comes out ready.']
+      ]
+    },
+    depo: {
+      pt: 'Eu levava três dias por cliente e fazia isso quarenta vezes por mês. Agora levo vinte minutos e sobra tempo para olhar o que realmente precisa de contador.',
+      en: 'It used to take me three days per client, forty times a month. Now it takes twenty minutes and I have time to look at what actually needs an accountant.'
+    },
+    depoNome: 'Ana R.',
+    depoCargo: { pt: 'sócia · 40 clientes na carteira', en: 'partner · 40 clients' },
+    fimH: { pt: 'Comece pelo cliente mais chato de conciliar.', en: 'Start with your most painful client to reconcile.' },
+    fimP: { pt: 'Se o Fluxo resolver esse, resolve os outros. Quatorze dias, sem cartão.', en: 'If Fluxo handles that one, it handles the rest. Fourteen days, no card.' }
+  };
+
+  function paginaSaas(L) {
+    const linhas = L(SAAS.linhas).map(([d, desc, v, st]) => `
+      <tr>
+        <td class="lp-d">${d}</td>
+        <td>${desc}</td>
+        <td class="lp-n">${v}</td>
+        <td><span class="lp-chip lp-chip--${st}">${st === 'ok' ? ICONE.check : ''}${L(SAAS.chips)[st === 'ok' ? 0 : 1]}</span></td>
+      </tr>`).join('');
+
+    const recursos = L(SAAS.recursos).map(([ic, t, d]) => `
+      <article class="lp-card">
+        <span class="lp-ico">${ICONE[ic]}</span>
+        <h4>${t}</h4>
+        <p>${d}</p>
+      </article>`).join('');
+
+    return `
+    <header class="lp-nav">
+      <span class="lp-logo"><span class="lp-mark"></span>Fluxo</span>
+      <nav class="lp-links">${L(SAAS.nav).map(x => `<a>${x}</a>`).join('')}</nav>
+      <span class="lp-navcta">${L(SAAS.navCta)}</span>
+    </header>
+
+    <section class="lp-hero lp-hero--split">
+      <div class="lp-hero__txt">
+        <span class="lp-badge">${ICONE.raio}${L(SAAS.badge)}</span>
+        <h1>${L(SAAS.h1a)} <em>${L(SAAS.h1b)}</em>${L(SAAS.h1c)}</h1>
+        <p class="lp-lede">${L(SAAS.sub)}</p>
+        <div class="lp-ctas">
+          <span class="lp-btn">${L(SAAS.cta)}${ICONE.seta}</span>
+          <span class="lp-btn lp-btn--ghost">${L(SAAS.cta2)}</span>
+        </div>
+        <p class="lp-micro">${L(SAAS.micro)}</p>
+      </div>
+      <div class="lp-hero__vis">
+        <div class="lp-app">
+          <div class="lp-app__top"><span class="lp-app__dot"></span><span class="lp-app__dot"></span><span class="lp-app__dot"></span><b>${L(SAAS.painel)}</b></div>
+          <div class="lp-app__barra"><span style="width:98%"></span></div>
+          <p class="lp-app__meta">${L(SAAS.progresso)}</p>
+          <table class="lp-app__tab"><tbody>${linhas}</tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-prova">
+      <p>${L(SAAS.provaTitulo)}</p>
+      <div class="lp-marcas">${SAAS.marcas.map(m => `<span>${m}</span>`).join('')}</div>
+    </section>
+
+    <section class="lp-recursos">${recursos}</section>
+
+    <section class="lp-depo">
+      <blockquote>&ldquo;${L(SAAS.depo)}&rdquo;</blockquote>
+      <div class="lp-autor"><span class="lp-avatar">AR</span><span><b>${SAAS.depoNome}</b><i>${L(SAAS.depoCargo)}</i></span></div>
+    </section>
+
+    <section class="lp-fim">
+      <h3>${L(SAAS.fimH)}</h3>
+      <p>${L(SAAS.fimP)}</p>
+      <span class="lp-btn">${L(SAAS.cta)}${ICONE.seta}</span>
+    </section>
+
+    <footer class="lp-rodape"><span class="lp-logo"><span class="lp-mark"></span>Fluxo</span><span>&copy; 2026 · fluxo.app</span></footer>`;
+  }
+
+  /* --- 2. E-commerce ------------------------------------------ */
+
+  const ECOM = {
+    dominio: 'raizcafe.com.br',
+    nav: { pt: ['Assinatura', 'Cafés', 'Sobre'], en: ['Subscription', 'Coffees', 'About'] },
+    navCta: { pt: 'Sacola (0)', en: 'Bag (0)' },
+    badge: { pt: 'Torra sob demanda', en: 'Roasted to order' },
+    h1: { pt: 'Torrado na quinta.<br>Na sua casa na segunda.', en: 'Roasted Thursday.<br>At your door Monday.' },
+    sub: {
+      pt: 'Café especial de produtores que a gente visita, torrado depois que você pede — nunca antes. Você escolhe a moagem, a frequência e pode pular um mês sem falar com ninguém.',
+      en: 'Specialty coffee from growers we visit, roasted after you order — never before. You choose the grind, the frequency, and can skip a month without talking to anyone.'
+    },
+    cta: { pt: 'Montar minha assinatura', en: 'Build my subscription' },
+    cta2: { pt: 'Comprar avulso', en: 'Buy a single bag' },
+    selos: {
+      pt: [['estrela', '4,9 de 5', '1.238 avaliações'], ['caminhao', 'Frete grátis', 'acima de R$ 90'], ['grao', 'Torra sob demanda', 'nunca estocada']],
+      en: [['estrela', '4.9 out of 5', '1,238 reviews'], ['caminhao', 'Free shipping', 'over R$ 90'], ['grao', 'Roasted to order', 'never stockpiled']]
+    },
+    sec: { pt: 'Os três mais pedidos', en: 'The three most ordered' },
+    produtos: {
+      pt: [
+        ['Sítio Boa Vista', 'Minas Gerais · 1.180 m', 'Chocolate, caramelo, laranja', 'Torra média', 'R$ 48,00', 2],
+        ['Fazenda Aurora', 'Cerrado Mineiro · 1.050 m', 'Amêndoa, mel, maçã verde', 'Torra clara', 'R$ 54,00', 1],
+        ['Serra do Bone', 'Espírito Santo · 1.240 m', 'Cacau, nozes, tangerina', 'Torra escura', 'R$ 52,00', 3]
+      ],
+      en: [
+        ['Boa Vista Farm', 'Minas Gerais · 1,180 m', 'Chocolate, caramel, orange', 'Medium roast', 'R$ 48.00', 2],
+        ['Aurora Estate', 'Cerrado Mineiro · 1,050 m', 'Almond, honey, green apple', 'Light roast', 'R$ 54.00', 1],
+        ['Serra do Bone', 'Espírito Santo · 1,240 m', 'Cocoa, walnut, tangerine', 'Dark roast', 'R$ 52.00', 3]
+      ]
+    },
+    add: { pt: 'Adicionar', en: 'Add' },
+    fimH: { pt: 'Comece com 250 g e decida depois.', en: 'Start with 250 g and decide later.' },
+    fimP: { pt: 'Sem fidelidade, sem multa, sem telefonema. Pula, troca ou cancela pelo site.', en: 'No lock-in, no fee, no phone call. Skip, swap or cancel from the site.' }
+  };
+
+  function paginaEcom(L) {
+    const selos = L(ECOM.selos).map(([ic, a, b]) => `
+      <div class="lp-selo"><span class="lp-ico">${ICONE[ic]}</span><span><b>${a}</b><i>${b}</i></span></div>`).join('');
+
+    const produtos = L(ECOM.produtos).map(([nome, origem, notas, torra, preco, nivel]) => `
+      <article class="lp-prod">
+        <div class="lp-prod__img lp-prod__img--${nivel}"><span class="lp-saco"><i></i><b>RAIZ</b></span></div>
+        <h4>${nome}</h4>
+        <p class="lp-prod__origem">${origem}</p>
+        <p class="lp-prod__notas">${notas}</p>
+        <div class="lp-prod__torra"><span class="lp-pontos">${[1, 2, 3].map(n => `<i class="${n <= nivel ? 'is-on' : ''}"></i>`).join('')}</span>${torra}</div>
+        <div class="lp-prod__fim"><b>${preco}</b><span class="lp-btn lp-btn--peq">${L(ECOM.add)}</span></div>
+      </article>`).join('');
+
+    return `
+    <header class="lp-nav">
+      <span class="lp-logo"><span class="lp-mark"></span>Raiz</span>
+      <nav class="lp-links">${L(ECOM.nav).map(x => `<a>${x}</a>`).join('')}</nav>
+      <span class="lp-navcta">${L(ECOM.navCta)}</span>
+    </header>
+
+    <section class="lp-hero lp-hero--split">
+      <div class="lp-hero__txt">
+        <span class="lp-badge">${ICONE.grao}${L(ECOM.badge)}</span>
+        <h1>${L(ECOM.h1)}</h1>
+        <p class="lp-lede">${L(ECOM.sub)}</p>
+        <div class="lp-ctas">
+          <span class="lp-btn">${L(ECOM.cta)}</span>
+          <span class="lp-btn lp-btn--ghost">${L(ECOM.cta2)}</span>
+        </div>
+      </div>
+      <div class="lp-hero__vis">
+        <div class="lp-bag"><span class="lp-bag__topo"></span><span class="lp-bag__marca">RAIZ</span><span class="lp-bag__linha"></span><span class="lp-bag__tipo">CAFÉ ESPECIAL<br>250 g</span><span class="lp-bag__valv"></span></div>
+      </div>
+    </section>
+
+    <section class="lp-selos">${selos}</section>
+
+    <section class="lp-prods">
+      <h3 class="lp-sec">${L(ECOM.sec)}</h3>
+      <div class="lp-grade">${produtos}</div>
+    </section>
+
+    <section class="lp-fim">
+      <h3>${L(ECOM.fimH)}</h3>
+      <p>${L(ECOM.fimP)}</p>
+      <span class="lp-btn">${L(ECOM.cta)}</span>
+    </section>
+
+    <footer class="lp-rodape"><span class="lp-logo"><span class="lp-mark"></span>Raiz</span><span>&copy; 2026 · raizcafe.com.br</span></footer>`;
+  }
+
+  /* --- 3. Advocacia ------------------------------------------- */
+
+  const ADV = {
+    dominio: 'ramosadvocacia.adv.br',
+    nav: { pt: ['A banca', 'Atuação', 'Artigos'], en: ['The firm', 'Practice', 'Articles'] },
+    navCta: '(11) 4000-0000',
+    badge: { pt: 'Direito do trabalho', en: 'Employment law' },
+    h1: { pt: 'Demitido sem receber<br>o que era seu?', en: 'Dismissed without<br>what you were owed?' },
+    sub: {
+      pt: 'Analisamos seu caso sem custo e dizemos, em até 24 horas, se há o que cobrar — e quanto. Se não houver, dizemos isso também.',
+      en: 'We review your case at no cost and tell you, within 24 hours, whether there is anything to claim — and how much. If there is not, we say that too.'
+    },
+    cta: { pt: 'Falar com o advogado', en: 'Talk to a lawyer' },
+    micro: { pt: 'Atendimento por WhatsApp, telefone ou presencial', en: 'By WhatsApp, phone or in person' },
+    cred: {
+      pt: [['balanca', 'OAB/SP 000.000', 'inscrição ativa'], ['relogio', '14 anos', 'só em direito do trabalho'], ['doc', 'Todo o estado', 'audiências presenciais e por vídeo']],
+      en: [['balanca', 'Bar #000.000', 'active registration'], ['relogio', '14 years', 'employment law only'], ['doc', 'Statewide', 'in-person and video hearings']]
+    },
+    sec: { pt: 'Situações que atendemos com frequência', en: 'Situations we handle often' },
+    casos: {
+      pt: [
+        ['Demissão sem justa causa', 'Verbas rescisórias pagas a menos, aviso prévio ignorado, FGTS não depositado.'],
+        ['Horas extras não pagas', 'Jornada além do contrato, banco de horas irregular, intervalo suprimido.'],
+        ['Assédio moral', 'Humilhação reiterada, metas abusivas, isolamento — com prova documental ou testemunhal.']
+      ],
+      en: [
+        ['Dismissal without cause', 'Severance underpaid, notice period ignored, severance fund not deposited.'],
+        ['Unpaid overtime', 'Hours beyond contract, irregular time banking, breaks suppressed.'],
+        ['Workplace harassment', 'Repeated humiliation, abusive targets, isolation — with documentary or witness evidence.']
+      ]
+    },
+    formT: { pt: 'Análise gratuita do seu caso', en: 'Free review of your case' },
+    formP: { pt: 'Resposta em até 24 horas, por quem vai cuidar do processo — não por atendente.', en: 'An answer within 24 hours, from the person who will handle the case — not from a call centre.' },
+    campos: { pt: ['Seu nome', 'Telefone ou WhatsApp'], en: ['Your name', 'Phone or WhatsApp'] },
+    formCta: { pt: 'Enviar', en: 'Send' },
+    formNota: { pt: 'O envio não cria relação advogado-cliente. Nada é publicado.', en: 'Sending this does not create an attorney-client relationship. Nothing is published.' },
+    rodapeNota: { pt: 'Publicidade em conformidade com o Provimento 205/2021 da OAB.', en: 'Advertising in accordance with Brazilian Bar rule 205/2021.' }
+  };
+
+  function paginaAdv(L) {
+    const cred = L(ADV.cred).map(([ic, a, b]) => `
+      <div class="lp-selo"><span class="lp-ico">${ICONE[ic]}</span><span><b>${a}</b><i>${b}</i></span></div>`).join('');
+
+    const casos = L(ADV.casos).map(([t, d]) => `
+      <article class="lp-card"><h4>${t}</h4><p>${d}</p></article>`).join('');
+
+    return `
+    <header class="lp-nav">
+      <span class="lp-logo lp-logo--serif">Ramos<i>Advocacia</i></span>
+      <nav class="lp-links">${L(ADV.nav).map(x => `<a>${x}</a>`).join('')}</nav>
+      <span class="lp-navcta">${ADV.navCta}</span>
+    </header>
+
+    <section class="lp-hero lp-hero--centro">
+      <span class="lp-badge">${L(ADV.badge)}</span>
+      <h1>${L(ADV.h1)}</h1>
+      <p class="lp-lede">${L(ADV.sub)}</p>
+      <div class="lp-ctas"><span class="lp-btn">${L(ADV.cta)}</span></div>
+      <p class="lp-micro">${L(ADV.micro)}</p>
+    </section>
+
+    <section class="lp-selos">${cred}</section>
+
+    <section class="lp-prods">
+      <h3 class="lp-sec">${L(ADV.sec)}</h3>
+      <div class="lp-recursos">${casos}</div>
+    </section>
+
+    <section class="lp-form">
+      <div class="lp-form__txt"><h3>${L(ADV.formT)}</h3><p>${L(ADV.formP)}</p></div>
+      <div class="lp-form__cx">
+        ${L(ADV.campos).map(c => `<span class="lp-campo">${c}</span>`).join('')}
+        <span class="lp-btn lp-btn--cheio">${L(ADV.formCta)}</span>
+        <p class="lp-micro">${L(ADV.formNota)}</p>
+      </div>
+    </section>
+
+    <footer class="lp-rodape"><span class="lp-logo lp-logo--serif">Ramos<i>Advocacia</i></span><span>${L(ADV.rodapeNota)}</span></footer>`;
+  }
+
   const PECAS = [
-    {
-      id: 'saas', rotulo: { pt: 'SaaS', en: 'SaaS' }, acento: '#22d3ee',
-      marca: 'Fluxo', dominio: 'fluxo.app',
-      h1: { pt: 'Feche o mês em 20 minutos, não em três dias.', en: 'Close the month in 20 minutes, not three days.' },
-      sub: { pt: 'Conciliação bancária automática para pequenas contabilidades.', en: 'Automatic bank reconciliation for small accounting firms.' },
-      prova: { pt: '"Passei de 3 dias para 20 minutos por cliente." — Ana R., 40 clientes na carteira', en: '"From 3 days to 20 minutes per client." — Ana R., 40 clients' },
-      cta: { pt: 'Testar 14 dias grátis', en: 'Start 14-day trial' },
-      selo: { pt: 'sem cartão', en: 'no card' }
-    },
-    {
-      id: 'ecom', rotulo: { pt: 'E-commerce', en: 'E-commerce' }, acento: '#f5b544',
-      marca: 'Raiz', dominio: 'raizcafe.com.br',
-      h1: { pt: 'Café torrado na quinta. Na sua casa na segunda.', en: 'Roasted Thursday. At your door Monday.' },
-      sub: { pt: 'Assinatura de grãos especiais, moagem escolhida por você.', en: 'Specialty bean subscription, ground the way you choose.' },
-      prova: { pt: '4,9 ★ em 1.238 avaliações · frete grátis acima de R$ 90', en: '4.9 ★ from 1,238 reviews · free shipping over R$ 90' },
-      cta: { pt: 'Montar minha assinatura', en: 'Build my subscription' },
-      selo: { pt: 'cancela quando quiser', en: 'cancel anytime' }
-    },
-    {
-      id: 'adv', rotulo: { pt: 'Advocacia', en: 'Law firm' }, acento: '#c7b299',
-      marca: 'Ramos', dominio: 'ramosadvocacia.adv.br',
-      h1: { pt: 'Demitido sem receber o que era seu?', en: 'Dismissed without what you were owed?' },
-      sub: { pt: 'Análise gratuita do seu caso trabalhista em até 24 horas.', en: 'Free review of your employment case within 24 hours.' },
-      prova: { pt: 'OAB/SP 000.000 · 14 anos de atuação · atendimento em todo o estado', en: 'Bar #000.000 · 14 years practising · statewide' },
-      cta: { pt: 'Falar com o advogado', en: 'Talk to a lawyer' },
-      selo: { pt: 'resposta em 24 h', en: '24 h reply' }
-    }
+    { id: 'saas', tema: 'saas', rotulo: { pt: 'SaaS', en: 'SaaS' }, dominio: SAAS.dominio, montar: paginaSaas },
+    { id: 'ecom', tema: 'ecom', rotulo: { pt: 'E-commerce', en: 'E-commerce' }, dominio: ECOM.dominio, montar: paginaEcom },
+    { id: 'adv', tema: 'adv', rotulo: { pt: 'Advocacia', en: 'Law firm' }, dominio: ADV.dominio, montar: paginaAdv }
   ];
 
   function demoSites(host, ctx) {
     const tx = ctx.tx;
+    const L = (v) => (v && typeof v === 'object' && !Array.isArray(v) && (v.pt || v.en)) ? (v[ctx.lang] ?? v.pt) : v;
+
     const T = ctx.lang === 'en' ? {
-      titulo: 'Three pieces, one structure',
-      estrutura: 'One promise · one proof · one button',
-      legenda: ['the promise, above the fold', 'the proof that makes it believable', 'a single button — no competing choices']
+      estrutura: 'Each page holds the same skeleton: one promise above the fold, the proof that makes it believable, and a single button. What changes is the identity — a SaaS page and a law firm page should not look like the same template with different colours.',
+      demo: 'demo piece'
     } : {
-      titulo: 'Três peças, uma estrutura',
-      estrutura: 'Uma promessa · uma prova · um botão',
-      legenda: ['a promessa, acima da dobra', 'a prova que a torna crível', 'um botão só — sem escolha concorrente']
+      estrutura: 'As três páginas seguem o mesmo esqueleto: uma promessa acima da dobra, a prova que a torna crível, e um botão só. O que muda é a identidade — uma página de SaaS e uma de advocacia não podem parecer o mesmo template com cores trocadas.',
+      demo: 'peça de demonstração'
     };
 
     const palco = el('div', { class: 'dm-palco' });
 
     function pintar(p) {
       palco.textContent = '';
-      const pagina = el('div', { class: 'dm-lp', style: '--lp-acc:' + p.acento }, [
-        el('div', { class: 'dm-lp__chrome' }, [
-          el('span', { class: 'dm-lp__dots' }),
-          el('span', { class: 'dm-lp__url mono', text: p.dominio })
+      const janela = el('div', { class: 'lp-janela' }, [
+        el('div', { class: 'lp-chrome' }, [
+          el('span', { class: 'lp-chrome__dots' }),
+          el('span', { class: 'lp-chrome__url mono', text: p.dominio }),
+          el('span', { class: 'lp-chrome__tag mono', text: T.demo })
         ]),
-        el('div', { class: 'dm-lp__corpo' }, [
-          el('span', { class: 'dm-lp__marca mono', text: p.marca }),
-          el('h5', { class: 'dm-lp__h1', text: tx(p.h1) }),
-          el('p', { class: 'dm-lp__sub', text: tx(p.sub) }),
-          el('div', { class: 'dm-lp__cta' }, [
-            el('span', { class: 'dm-lp__btn', text: tx(p.cta) }),
-            el('span', { class: 'dm-lp__selo', text: tx(p.selo) })
-          ]),
-          el('p', { class: 'dm-lp__prova', text: tx(p.prova) })
+        el('div', { class: 'lp-scroll' }, [
+          el('div', { class: 'lp', 'data-tema': p.tema, html: p.montar(L) })
         ])
       ]);
-
-      const marcas = el('ol', { class: 'dm-anota' }, T.legenda.map(l => el('li', { text: l })));
-      palco.appendChild(pagina);
-      palco.appendChild(marcas);
+      palco.appendChild(janela);
+      palco.appendChild(el('p', { class: 'dm-nota', text: T.estrutura }));
     }
 
-    host.appendChild(bloco(T.titulo,
-      abas(PECAS.map(p => ({ rotulo: tx(p.rotulo), peca: p })), (it) => pintar(it.peca)),
-      el('p', { class: 'dm-nota', text: T.estrutura })
-    ));
+    host.appendChild(abas(PECAS.map(p => ({ rotulo: tx(p.rotulo), peca: p })), (it) => {
+      pintar(it.peca);
+      /* A peça anterior pode ter ficado rolada lá embaixo; abrir a próxima no
+         meio do rodapé faria parecer que ela carregou quebrada. */
+      host.scrollTop = 0;
+    }));
     host.appendChild(palco);
     pintar(PECAS[0]);
   }
