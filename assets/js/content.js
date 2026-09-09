@@ -40,7 +40,7 @@ const I18N = {
     'about.p3': 'Procuro um estágio onde eu possa fazer as duas coisas: escrever código que se sustenta em teste e entender por que ele existe.',
     'about.f1k': 'formação',      'about.f1v': 'ADS · em curso',
     'about.f3k': 'foco',          'about.f3v': 'Back-end em Python e front-end',
-    'about.f4k': 'idiomas',       'about.f4v': 'Português nativo · Inglês técnico',
+    'about.f4k': 'idiomas',       'about.f4v': 'Português nativo · Inglês avançado',
     'about.f5k': 'buscando',      'about.f5v': 'Estágio remoto ou híbrido',
 
     'stack.title': 'O que eu uso, e onde usei.',
@@ -99,7 +99,7 @@ const I18N = {
     'about.p3': 'I am looking for an internship where I can do both: write code that holds up under tests and understand why it exists.',
     'about.f1k': 'education',   'about.f1v': 'Systems Analysis & Development · in progress',
     'about.f3k': 'focus',       'about.f3v': 'Python back-end and front-end',
-    'about.f4k': 'languages',   'about.f4v': 'Portuguese native · technical English',
+    'about.f4k': 'languages',   'about.f4v': 'Portuguese native · advanced English',
     'about.f5k': 'looking for', 'about.f5v': 'Remote or hybrid internship',
 
     'stack.title': 'What I use, and where I used it.',
