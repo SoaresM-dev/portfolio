@@ -147,7 +147,7 @@ const TERM = {
     { t: 'cmd',  v: 'cat foco.txt' },
     { t: 'out',  v: 'back-end em Python · front-end · banco de dados' },
     { t: 'cmd',  v: 'aiden --status' },
-    { t: 'ok',   v: '● online   526 testes   27 skills   0 chamadas em nuvem' },
+    { t: 'ok',   v: '● online   525 testes   27 skills   0 chamadas em nuvem' },
     { t: 'cmd',  v: 'status --vaga' },
     { t: 'ok',   v: '● procurando estágio · remoto ou híbrido' },
     { t: 'cmd',  v: '' }
@@ -158,7 +158,7 @@ const TERM = {
     { t: 'cmd',  v: 'cat focus.txt' },
     { t: 'out',  v: 'python back-end · front-end · databases' },
     { t: 'cmd',  v: 'aiden --status' },
-    { t: 'ok',   v: '● online   526 tests   27 skills   0 cloud calls' },
+    { t: 'ok',   v: '● online   525 tests   27 skills   0 cloud calls' },
     { t: 'cmd',  v: 'status --job' },
     { t: 'ok',   v: '● seeking an internship · remote or hybrid' },
     { t: 'cmd',  v: '' }
@@ -180,7 +180,7 @@ const STACK = [
     { n: 'FastAPI',   w: { pt: 'Servidor do Aiden, com WebSocket', en: 'Aiden server, with WebSocket' } },
     { n: 'WebSocket', w: { pt: 'Streaming de estado entre o núcleo e o HUD', en: 'State streaming between core and HUD' } },
     { n: 'REST',      w: { pt: 'Desenho de rotas e contratos de API', en: 'Route design and API contracts' } },
-    { n: 'pytest',    w: { pt: '526 testes no Aiden, rodando a cada mudança', en: '526 tests in Aiden, run on every change' } },
+    { n: 'pytest',    w: { pt: '525 testes no Aiden, rodando a cada mudança', en: '525 tests in Aiden, run on every change' } },
     { n: 'Ollama',    w: { pt: 'LLM local em CPU, sem chamada em nuvem', en: 'Local CPU LLM, zero cloud calls' } },
     { n: 'Node.js',   w: { pt: 'API de consulta de CNPJ, com Express', en: 'CNPJ lookup API, with Express' } }
   ]},
@@ -230,7 +230,7 @@ const PROJECTS = [
     },
     tags: ['Python', 'FastAPI', 'WebSocket', 'pytest', 'Ollama', 'SQLite'],
     stats: [
-      { v: '526', l: { pt: 'testes', en: 'tests' } },
+      { v: '525', l: { pt: 'testes', en: 'tests' } },
       { v: '27',  l: { pt: 'skills', en: 'skills' } },
       { v: { pt: '8,5s', en: '8.5s' }, l: { pt: 'até a 1ª resposta', en: 'to first answer' } },
       { v: '0',   l: { pt: 'chamadas em nuvem', en: 'cloud calls' } }
@@ -240,8 +240,8 @@ const PROJECTS = [
       en: 'Every decent voice assistant depends on the cloud: latency, per-request cost, and your audio leaving the machine. I wanted one that ran entirely on my computer, in Portuguese — and that computer is CPU-only, 15.7 GB of RAM, no CUDA.'
     },
     solution: {
-      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 526 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 169 KB.',
-      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 526-test suite that runs on every change. Every engineering decision is recorded in a decision log now 169 KB long.'
+      pt: 'Pipeline completo de voz, do microfone ao alto-falante: wake word treinada localmente → transcrição com faster-whisper → roteador de intenção com 27 skills → LLM local via Ollama → síntese com Piper → HUD na tela alimentado por WebSocket. Servidor em FastAPI, arquitetura em interfaces trocáveis e uma suíte de 525 testes que roda a cada alteração. Cada decisão de engenharia fica registrada num log de decisões que hoje tem 169 KB.',
+      en: 'A full voice pipeline, microphone to speaker: locally trained wake word → faster-whisper transcription → intent router with 27 skills → local LLM via Ollama → Piper synthesis → an on-screen HUD fed over WebSocket. FastAPI server, swappable interfaces, and a 525-test suite that runs on every change. Every engineering decision is recorded in a decision log now 169 KB long.'
     },
     result: {
       pt: 'Tempo até a primeira resposta caiu de 14,8s para 8,5s (−42%) e a taxa de erro de transcrição de 31% para 24,7%, na mesma máquina e sem trocar hardware. Roda sem console, sobe com o Windows e desliga por comando de voz.',
@@ -446,8 +446,8 @@ const TIMELINE = [
     when: { pt: 'A regra que mudou o rumo', en: 'The rule that changed course' },
     title: { pt: 'Capacidade não exercitada não conta', en: 'Capability not exercised does not count' },
     body: {
-      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 526 testes, widget na tela, desligamento por voz.',
-      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 526 tests, on-screen widget, voice shutdown.'
+      pt: '428 testes contra 16 turnos de uso real. O diagnóstico virou regra: capacidade não exercitada não conta como entregue. A versão seguinte deixou de acrescentar função e passou a medir uso — 525 testes, widget na tela, desligamento por voz.',
+      en: '428 tests and 27 skills against 16 turns of real use. That diagnosis became a rule: capability that is not exercised does not count as delivered. The next version stopped adding features and started measuring use — 525 tests, on-screen widget, voice shutdown.'
     }
   },
   {
