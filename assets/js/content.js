@@ -193,6 +193,7 @@ const STACK = [
   ]},
   { group: { pt: 'Dados', en: 'Data' }, items: [
     { n: 'PostgreSQL',    w: { pt: 'Banco do Painel Convertta', en: 'Convertta Panel database' } },
+    { n: 'MySQL',         w: { pt: 'As dez consultas portadas para o segundo dialeto', en: 'The ten queries ported to a second dialect' } },
     { n: 'SQLite',        w: { pt: 'Memória entre sessões do Aiden', en: 'Aiden cross-session memory' } },
     { n: 'Modelagem',     w: { pt: 'Diagrama ER e normalização', en: 'ER diagrams and normalization' } },
     { n: 'SQLAlchemy',    w: { pt: 'ORM e migrações com Alembic', en: 'ORM and Alembic migrations' } }
@@ -359,19 +360,19 @@ const PROJECTS = [
       pt: 'Dez perguntas de reunião de cliente respondidas em SQL, com a saída de cada uma conferida pela CI.',
       en: 'Ten client-meeting questions answered in SQL, with every output checked by CI.'
     },
-    tags: ['SQL', 'PostgreSQL', 'Modelagem', 'GitHub Actions'],
+    tags: ['SQL', 'PostgreSQL', 'MySQL', 'Modelagem', 'GitHub Actions'],
     stats: [
       { v: '10', l: { pt: 'consultas de negócio', en: 'business queries' } },
       { v: '6', l: { pt: 'tabelas em estrela', en: 'star-schema tables' } },
-      { v: { pt: '3,6×', en: '3.6\u00d7' }, l: { pt: 'ganho medido com índice', en: 'measured index speedup' } }
+      { v: '2', l: { pt: 'dialetos rodando na CI', en: 'dialects running in CI' } }
     ],
     problem: {
       pt: 'Repositório de SQL costuma ser um arquivo de consultas que ninguém consegue verificar. Se a semente usa random(), nenhuma saída pode ser comparada com nada — o repositório inteiro vira "confia em mim".',
       en: 'A SQL repo is usually a file of queries nobody can verify. If the seed uses random(), no output can be compared to anything — the whole repo becomes "trust me".'
     },
     solution: {
-      pt: 'Modelo em estrela para métricas de tráfego pago, com CHECKs que impedem CTR acima de 100% e receita contada duas vezes. A semente é determinística: os números vêm de md5() convertido para inteiro, sem random() em lugar nenhum. A CI sobe um PostgreSQL 16, semeia e compara a saída das dez consultas com arquivos esperados. As consultas usam LAG, ROW_NUMBER com PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS e HAVING sobre agregado.',
-      en: 'A star schema for paid-traffic metrics, with CHECKs that make CTR above 100% and double-counted revenue impossible. The seed is deterministic: numbers come from md5() cast to integer, with no random() anywhere. CI spins up PostgreSQL 16, seeds it and compares all ten query outputs against expected files. The queries use LAG, ROW_NUMBER with PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS and HAVING over aggregates.'
+      pt: 'Modelo em estrela para métricas de tráfego pago, com CHECKs que impedem CTR acima de 100% e receita contada duas vezes. A semente é determinística: os números vêm de md5() convertido para inteiro, sem random() em lugar nenhum. A CI sobe um PostgreSQL 16 e um MySQL 8.4, semeia os dois e compara a saída das dez consultas com arquivos esperados. As consultas usam LAG, ROW_NUMBER com PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS e HAVING sobre agregado — e o porte para MySQL existe pelo que revelou: três diferenças de dialeto mudam o número do relatório sem dar erro nenhum, e PERCENTILE_CONT simplesmente não existe lá, então a mediana foi reconstruída com funções de janela.',
+      en: 'A star schema for paid-traffic metrics, with CHECKs that make CTR above 100% and double-counted revenue impossible. The seed is deterministic: numbers come from md5() cast to integer, with no random() anywhere. CI spins up both PostgreSQL 16 and MySQL 8.4, seeds them and compares all ten query outputs against expected files. The queries use LAG, ROW_NUMBER with PARTITION BY, SUM OVER, PERCENTILE_CONT, FILTER, NOT EXISTS and HAVING over aggregates — and the MySQL port earns its place by what it exposed: three dialect differences change the reported number without raising an error, and PERCENTILE_CONT does not exist there at all, so the median was rebuilt with window functions.'
     },
     result: {
       pt: 'A semente planta de propósito os casos que duas consultas existem para achar — campanha que gasta sem converter e cliente que parou de receber lead — porque consulta que nunca devolve linha não prova nada. A medição de índice está registrada com EXPLAIN ANALYZE, inclusive uma previsão minha que a medição desmentiu.',
