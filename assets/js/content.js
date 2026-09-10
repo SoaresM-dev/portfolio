@@ -309,8 +309,8 @@ const PROJECTS = [
       en: 'FastAPI over PostgreSQL with SQLAlchemy and Alembic migrations, JWT auth, a React + strict TypeScript front-end on Vite, and Docker Compose to bring it all up with one command. Scope deliberately locked at three entities, one dashboard and one login — a project that keeps growing is a project that never ships.'
     },
     result: {
-      pt: '96 testes rodando contra PostgreSQL na CI, cada um com banco limpo. Um deles existe só para travar o erro de fan-out: juntar campanhas e leads no mesmo JOIN multiplicaria o investimento pelo número de leads — defeito que só apareceria depois de o número já ter sido mostrado ao cliente. `docker compose up` sobe banco, migrações, dados de demonstração, API e painel.',
-      en: '96 tests running against PostgreSQL in CI, each with a clean database. One exists purely to pin down the fan-out bug: joining campaigns and leads in the same JOIN would multiply spend by the number of leads — a defect that would only surface after the number had been shown to the client. `docker compose up` brings up database, migrations, demo data, API and dashboard.'
+      pt: '120 testes rodando contra PostgreSQL na CI, cada um com banco limpo. Um deles existe só para travar o erro de fan-out: juntar campanhas e leads no mesmo JOIN multiplicaria o investimento pelo número de leads — defeito que só apareceria depois de o número já ter sido mostrado ao cliente. `docker compose up` sobe banco, migrações, dados de demonstração, API e painel.',
+      en: '120 tests running against PostgreSQL in CI, each with a clean database. One exists purely to pin down the fan-out bug: joining campaigns and leads in the same JOIN would multiply spend by the number of leads — a defect that would only surface after the number had been shown to the client. `docker compose up` brings up database, migrations, demo data, API and dashboard.'
     },
     links: [
       { href: 'https://github.com/SoaresM-dev/painel-convertta', label: { pt: 'Repositório', en: 'Repository' } }
