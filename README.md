@@ -2,6 +2,8 @@
 
 Site pessoal de portfólio. Página única, sem framework e sem build: HTML, CSS e JavaScript escritos à mão, servidos estaticamente pelo GitHub Pages.
 
+*In English: personal portfolio site. Single page, no framework, no build step — hand-written HTML, CSS and JavaScript served statically by GitHub Pages.*
+
 **Ao vivo:** https://SoaresM-dev.github.io/portfolio/
 
 ---
